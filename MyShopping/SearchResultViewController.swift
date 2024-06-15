@@ -10,11 +10,12 @@ import SnapKit
 import Alamofire
 import Kingfisher
 
-struct Shopping:Decodable {
+struct Shopping: Codable {
     let total: Int
+    let start: Int
     let items: [Items]
 }
-struct Items: Decodable {
+struct Items: Codable {
     let title: String
     let mallName: String
     let image: String
@@ -23,12 +24,17 @@ struct Items: Decodable {
     let productId: String
     let link: String
 }
+var cartID: [String] = []
+var cart: [Bool] = []
 
 class SearchResultViewController: UIViewController {
 
     var list = [Items]()
     var totalCount = 0
-
+    var start = 1
+    var searchQuery = ""
+    var sort = "sim"
+    
     let resultLabel = UILabel()
     let simButton = UIButton()
     let dateButton = UIButton()
@@ -45,11 +51,6 @@ class SearchResultViewController: UIViewController {
         layout.sectionInset = .zero
         return layout
     }
-    
-    var searchQuery = ""
-
-    var sort = "sim"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -67,19 +68,32 @@ class SearchResultViewController: UIViewController {
         notCollectionView()
         yesCollectionView()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        collectionView.reloadData()
+    }
     func callRequest() {
-        let url = "https://openapi.naver.com/v1/search/shop.json?display=30&query="
+        let url = "https://openapi.naver.com/v1/search/shop.json?display=30&query=\(searchQuery)&sort=\(sort)&start=\(start)"
         let header: HTTPHeaders = [
             "X-Naver-Client-Id": Private.naverId,
             "X-Naver-Client-Secret": Private.naverPassword
         ]
-        AF.request(url+searchQuery,headers: header).responseDecodable(of: Shopping.self) { [self] response in
+        AF.request(url,headers: header).responseDecodable(of: Shopping.self) { [self] response in
             switch response.result {
             case .success(let value):
-                self.list = value.items
-                self.totalCount = value.total
+                if self.start == 1 {
+                    self.list = value.items
+                }
+                else {
+                    self.list.append(contentsOf: value.items)
+                }
                 collectionView.reloadData()
-                print(self.totalCount)
+
+                if self.start == 1 {
+                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                }
+
+                self.totalCount = value.total
+                resultLabel.text = "\(totalCount.formatted())개의 검색결과"
             case .failure(let error):
                 print(error)
             }
@@ -91,22 +105,22 @@ class SearchResultViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(SearchResultCollectionViewCell.self, forCellWithReuseIdentifier: "SearchResultCollectionViewCell")
+        
+        collectionView.prefetchDataSource = self // pagenation
+        
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(simButton.snp_bottomMargin).offset(20)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        resultLabel.text = "\(totalCount)개의 검색결과"
-//    }
     func notCollectionView() {
         resultLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide)//.offset(10)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.height.equalTo(40)
         }
-        resultLabel.text = "\(totalCount)개의 검색결과"
+        //resultLabel.text = "\(totalCount)개의 검색결과"
         resultLabel.textColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
         resultLabel.font = .boldSystemFont(ofSize: 14)
         
@@ -181,6 +195,9 @@ class SearchResultViewController: UIViewController {
         
         dscButton.backgroundColor = .white
         dscButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        
+        start = 1
+        callRequest()
         collectionView.reloadData()
     }
     @objc func date() {
@@ -196,10 +213,13 @@ class SearchResultViewController: UIViewController {
         
         simButton.backgroundColor = .white
         simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        
+        start = 1
+        callRequest()
         collectionView.reloadData()
     }
     @objc func asc() {
-        sort = "asc"
+        sort = "dsc"
         ascButton.setTitleColor(.white, for: .normal)
         ascButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
         
@@ -211,10 +231,13 @@ class SearchResultViewController: UIViewController {
         
         simButton.backgroundColor = .white
         simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        
+        start = 1
+        callRequest()
         collectionView.reloadData()
     }
     @objc func dsc() {
-        sort = "dsc"
+        sort = "asc"
         dscButton.setTitleColor(.white, for: .normal)
         dscButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
         
@@ -226,24 +249,76 @@ class SearchResultViewController: UIViewController {
         
         simButton.backgroundColor = .white
         simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        
+        start = 1
+        callRequest()
         collectionView.reloadData()
     }
+}
+extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for i in indexPaths {
+            if i.row == list.count-2 && start+30 <= totalCount {
+                start += 31
+                callRequest()
+            }
+        }
+    }
+    
 }
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         list.count
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = ProductsDetailViewController()
+        vc.link = list[indexPath.item].link
+        
+        let updatedTitle = list[indexPath.item].title.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
+        vc.myTitle = updatedTitle
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchResultCollectionViewCell", for: indexPath) as! SearchResultCollectionViewCell
         let url = URL(string: list[indexPath.item].image)
         cell.image.kf.setImage(with: url)
-        cell.backButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        
+        UserDefaults.standard.synchronize()
+        if UserDefaults.standard.bool(forKey: "bag") {
+            cell.bagButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
+        else {
+            cell.bagButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+        cell.bagButton.tag = indexPath.item
+        cell.bagButton.addTarget(self, action: #selector(bagButtonClicked(sender:)), for: .touchUpInside)
+        
         cell.mallNameLabel.text = list[indexPath.item].mallName
-        cell.titleLabel.text = list[indexPath.item].title
-        cell.lpriceLabel.text = list[indexPath.item].lprice+"원"
+        
+        let updatedTitle = list[indexPath.item].title.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
+        cell.titleLabel.text = updatedTitle//list[indexPath.item].title
+        
+        cell.lpriceLabel.text = "\(Int(list[indexPath.item].lprice)?.formatted() ?? String(0))"+"원"
+        print(#function)
         return cell
     }
-    
-
+    @objc func bagButtonClicked(sender: UIButton) {
+//        if UserDefaults.standard.array(forKey: "bag")![sender.tag] as! Bool {
+//            cartID.append(list[sender.tag].productId)
+//            UserDefaults.standard.set(cartID, forKey: "bagID")
+//            
+//            cart.append(false)
+//            UserDefaults.standard.set(cart, forKey: "bag")
+//        }
+//        else {
+//            UserDefaults.standard.set(true, forKey: "bag")
+//        }
+//       
+//        print(UserDefaults.standard.array(forKey: "bagID")!)
+//        print(UserDefaults.standard.array(forKey: "bag")!)
+//        UserDefaults.standard.set(list[sender.tag].productId, forKey: "bagID")
+        collectionView.reloadData()
+    }
 }

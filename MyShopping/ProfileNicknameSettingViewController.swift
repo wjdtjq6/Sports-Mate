@@ -26,7 +26,12 @@ class ProfileNicknameSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "PROFILE SETTING"
+        if UserDefaults.standard.string(forKey: "nickname") != nil {
+            navigationItem.title = "EDIT PROFILE"
+        }
+        else {
+            navigationItem.title = "PROFILE SETTING"
+        }
         navigationItem.backButtonTitle = ""
         configureHierarchy()
         configureLayout()
@@ -107,12 +112,19 @@ class ProfileNicknameSettingViewController: UIViewController {
         
         warningLabel.textColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
         warningLabel.font = .systemFont(ofSize: 13)
+        if UserDefaults.standard.string(forKey: "nickname") != nil {
+            let rightBarButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(completeButtonClicked))
+            navigationItem.rightBarButtonItem = rightBarButton
+            //UINavigationItem().rightBarButtonItem = rightBarButton
+        }
+        else {
+            completeButton.setTitle("완료", for: .normal)
+            completeButton.tintColor = .white
+            completeButton.backgroundColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
+            completeButton.layer.cornerRadius = 20
+            completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
+        }
         
-        completeButton.setTitle("완료", for: .normal)
-        completeButton.tintColor = .white
-        completeButton.backgroundColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
-        completeButton.layer.cornerRadius = 20
-        completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
     }
     @objc func completeButtonClicked() {
         if warningLabel.text == "사용할 수 있는 닉네임이에요" {
@@ -128,6 +140,11 @@ class ProfileNicknameSettingViewController: UIViewController {
             SceneDelegate?.window?.makeKeyAndVisible()
         }
         UserDefaults.standard.set(true, forKey: "isUser")
+        
+        let df = DateFormatter()
+        df.dateFormat = "yyyy.MM.dd"
+        let str = df.string(from: Date())
+        UserDefaults.standard.set(str, forKey: "date")
         
     }
     @objc func nicknameWarning() {

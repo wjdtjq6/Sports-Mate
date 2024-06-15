@@ -189,6 +189,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource, UISear
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = SearchResultViewController()
         vc.searchQuery = list[(list.count - 1) - indexPath.row]
+        SearchResultViewController().start = 1 // pagenation
         navigationController?.pushViewController(vc, animated: true)
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -197,6 +198,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource, UISear
         UserDefaults.standard.set(list, forKey: "recentSearch")
         let vc = SearchResultViewController()
         vc.searchQuery = searchBar.text!
+        SearchResultViewController().start = 1 //pagenation
         navigationController?.pushViewController(vc, animated: true)
         
         searchBar.text = ""

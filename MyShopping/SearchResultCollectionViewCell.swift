@@ -11,7 +11,7 @@ import SnapKit
 class SearchResultCollectionViewCell: UICollectionViewCell {
     
     let image = UIImageView()
-    let backButton = UIButton()
+    let bagButton = UIButton()
     let mallNameLabel = UILabel()
     let titleLabel = UILabel()
     let lpriceLabel = UILabel()
@@ -19,7 +19,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(image)
-        contentView.addSubview(backButton)
+        contentView.addSubview(bagButton)
         contentView.addSubview(mallNameLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(lpriceLabel)
@@ -28,20 +28,20 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
             make.top.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
             make.height.equalTo(210)
         }
-        image.backgroundColor = .blue
         image.clipsToBounds = true
         image.layer.cornerRadius = 20
         
-        backButton.snp.makeConstraints { make in
+        bagButton.snp.makeConstraints { make in
             make.bottom.equalTo(image.snp.bottom).inset(15)
             make.trailing.equalTo(image.snp.trailing).inset(15)
             make.width.height.equalTo(30)
         }
-        backButton.layer.cornerRadius = 5
-        backButton.backgroundColor = .white
+        bagButton.layer.cornerRadius = 5
+        bagButton.backgroundColor = .white.withAlphaComponent(0.3)
+        bagButton.tintColor = .black
         
         mallNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(image.snp.bottom)
+            make.top.equalTo(image.snp.bottom).offset(5)
             make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(5)
             make.height.equalTo(15)
         }
@@ -60,7 +60,6 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(5)
             make.height.equalTo(15)
-
         }
         lpriceLabel.font = .boldSystemFont(ofSize: 14)
     }

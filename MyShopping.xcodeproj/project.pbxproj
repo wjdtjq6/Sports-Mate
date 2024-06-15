@@ -29,6 +29,8 @@
 		036068DB2C1C5EA0008E5680 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068DA2C1C5EA0008E5680 /* SearchResultCollectionViewCell.swift */; };
 		036068DD2C1C7C4E008E5680 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 036068DC2C1C7C4E008E5680 /* .gitignore */; };
 		036068E12C1C7D40008E5680 /* Private.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068E02C1C7D40008E5680 /* Private.swift */; };
+		036068E32C1D5A56008E5680 /* ProductsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068E22C1D5A56008E5680 /* ProductsDetailViewController.swift */; };
+		036068E52C1DAC3F008E5680 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068E42C1DAC3F008E5680 /* SettingTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		036068DA2C1C5EA0008E5680 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		036068DC2C1C7C4E008E5680 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		036068E02C1C7D40008E5680 /* Private.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Private.swift; sourceTree = "<group>"; };
+		036068E22C1D5A56008E5680 /* ProductsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsDetailViewController.swift; sourceTree = "<group>"; };
+		036068E42C1DAC3F008E5680 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +106,10 @@
 				0316E7C02C1BF1FA00E6724D /* MainViewController.swift */,
 				036068D22C1C0DEE008E5680 /* RecentSearchListTableViewCell.swift */,
 				036068D42C1C1F5F008E5680 /* SearchResultViewController.swift */,
-				036068D82C1C367D008E5680 /* SettingViewController.swift */,
 				036068DA2C1C5EA0008E5680 /* SearchResultCollectionViewCell.swift */,
+				036068E22C1D5A56008E5680 /* ProductsDetailViewController.swift */,
+				036068D82C1C367D008E5680 /* SettingViewController.swift */,
+				036068E42C1DAC3F008E5680 /* SettingTableViewCell.swift */,
 				036068DC2C1C7C4E008E5680 /* .gitignore */,
 				036068E02C1C7D40008E5680 /* Private.swift */,
 			);
@@ -202,7 +208,9 @@
 				036068D52C1C1F5F008E5680 /* SearchResultViewController.swift in Sources */,
 				0316E7972C1AD62100E6724D /* ViewController.swift in Sources */,
 				036068D72C1C3534008E5680 /* TabBarController.swift in Sources */,
+				036068E52C1DAC3F008E5680 /* SettingTableViewCell.swift in Sources */,
 				0316E7B82C1AE01D00E6724D /* ProfileNicknameSettingViewController.swift in Sources */,
+				036068E32C1D5A56008E5680 /* ProductsDetailViewController.swift in Sources */,
 				0316E7932C1AD62100E6724D /* AppDelegate.swift in Sources */,
 				036068DB2C1C5EA0008E5680 /* SearchResultCollectionViewCell.swift in Sources */,
 				036068D32C1C0DEE008E5680 /* RecentSearchListTableViewCell.swift in Sources */,
