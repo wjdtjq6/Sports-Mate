@@ -28,12 +28,16 @@ class SettingViewController: UIViewController {
         }
         tableView.separatorColor = .black
     }
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData() // TODO: EDIT PROFILE갔다가 뒤로 오면 userDefaults가 저장되는데 이미지는 안바뀌어서 바뀌도록
+    }
 }
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let vc = ProfileNicknameSettingViewController()
-            
+            navigationItem.backButtonTitle = ""
+            navigationController?.navigationBar.tintColor = .black
             navigationController?.pushViewController(vc, animated: true)
         }
         else if indexPath.row == 5{
@@ -64,9 +68,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             
             present(alert, animated: true)
         }
-//        func yesAlertClicked() {
-//            
-//        }
+
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         6
@@ -109,6 +111,5 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
-    
     
 }

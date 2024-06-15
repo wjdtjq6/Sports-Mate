@@ -18,6 +18,21 @@ class SettingTableViewCell: UITableViewCell {
     let bagListLabel = UILabel()
     let bagListLabel2 = UILabel()
     
+    // TODO: EDIT PROFILE갔다가 뒤로 오면 userDefaults가 저장되는데 이미지는 안바뀌어서 바뀌도록
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.textLabel!.text = nil
+        self.bagListLabel.text = nil
+        self.bagListLabel2.text = nil
+        self.bagImage.image = nil
+        self.profileImage.image = nil
+        self.profileLabel.text = nil
+        self.profileDateLabel.text = nil
+        self.nextImage.image = nil
+        self.profileImage.layer.borderWidth = 0
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(profileImage)

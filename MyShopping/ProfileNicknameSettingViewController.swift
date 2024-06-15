@@ -114,6 +114,10 @@ class ProfileNicknameSettingViewController: UIViewController {
         warningLabel.font = .systemFont(ofSize: 13)
         if UserDefaults.standard.string(forKey: "nickname") != nil {
             let rightBarButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(completeButtonClicked))
+            rightBarButton.setTitleTextAttributes([
+                NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16) ,
+                NSAttributedString.Key.foregroundColor : UIColor.black,
+                ], for: .normal)
             navigationItem.rightBarButtonItem = rightBarButton
             //UINavigationItem().rightBarButtonItem = rightBarButton
         }
@@ -141,11 +145,12 @@ class ProfileNicknameSettingViewController: UIViewController {
         }
         UserDefaults.standard.set(true, forKey: "isUser")
         
-        let df = DateFormatter()
-        df.dateFormat = "yyyy.MM.dd"
-        let str = df.string(from: Date())
-        UserDefaults.standard.set(str, forKey: "date")
-        
+        if UserDefaults.standard.string(forKey: "date") == nil {
+            let df = DateFormatter()
+            df.dateFormat = "yyyy.MM.dd"
+            let str = df.string(from: Date())
+            UserDefaults.standard.set(str, forKey: "date")
+        }
     }
     @objc func nicknameWarning() {
         

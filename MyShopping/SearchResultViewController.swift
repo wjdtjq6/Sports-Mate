@@ -67,6 +67,7 @@ class SearchResultViewController: UIViewController {
         callRequest()
         notCollectionView()
         yesCollectionView()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         collectionView.reloadData()
@@ -88,12 +89,13 @@ class SearchResultViewController: UIViewController {
                 }
                 collectionView.reloadData()
 
-                if self.start == 1 {
+                if self.start == 1 && !list.isEmpty { //검색어 없을때 && !list.isEmpty만 추가해서 해결!!!!
                     self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
                 }
 
                 self.totalCount = value.total
                 resultLabel.text = "\(totalCount.formatted())개의 검색결과"
+                
             case .failure(let error):
                 print(error)
             }
