@@ -24,9 +24,6 @@ struct Items: Codable {
     let productId: String
     let link: String
 }
-var cartID: [String] = []
-var cart: [Bool] = []
-
 class SearchResultViewController: UIViewController {
 
     var list = [Items]()
@@ -34,6 +31,8 @@ class SearchResultViewController: UIViewController {
     var start = 1
     var searchQuery = ""
     var sort = "sim"
+    
+    var cart: [Bool] = []
     
     let resultLabel = UILabel()
     let simButton = UIButton()
@@ -95,7 +94,6 @@ class SearchResultViewController: UIViewController {
 
                 self.totalCount = value.total
                 resultLabel.text = "\(totalCount.formatted())개의 검색결과"
-                
             case .failure(let error):
                 print(error)
             }
@@ -275,6 +273,8 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = ProductsDetailViewController()
         vc.link = list[indexPath.item].link
+        vc.getKey = list[indexPath.item].productId // 장바구니 기능
+        SettingViewController.getKey = list[indexPath.item].productId 
         
         let updatedTitle = list[indexPath.item].title.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
         vc.myTitle = updatedTitle
@@ -287,13 +287,15 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         let url = URL(string: list[indexPath.item].image)
         cell.image.kf.setImage(with: url)
         
-        UserDefaults.standard.synchronize()
-        if UserDefaults.standard.bool(forKey: "bag") {
+        //TODO: 장바구니 기능
+        //UserDefaults.standard.synchronize()
+        if UserDefaults.standard.bool(forKey: list[indexPath.item].productId) {
             cell.bagButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         }
         else {
             cell.bagButton.setImage(UIImage(systemName: "heart"), for: .normal)
         }
+        //
         cell.bagButton.tag = indexPath.item
         cell.bagButton.addTarget(self, action: #selector(bagButtonClicked(sender:)), for: .touchUpInside)
         
@@ -303,24 +305,21 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         cell.titleLabel.text = updatedTitle//list[indexPath.item].title
         
         cell.lpriceLabel.text = "\(Int(list[indexPath.item].lprice)?.formatted() ?? String(0))"+"원"
-        print(#function)
         return cell
     }
     @objc func bagButtonClicked(sender: UIButton) {
-//        if UserDefaults.standard.array(forKey: "bag")![sender.tag] as! Bool {
-//            cartID.append(list[sender.tag].productId)
-//            UserDefaults.standard.set(cartID, forKey: "bagID")
-//            
-//            cart.append(false)
-//            UserDefaults.standard.set(cart, forKey: "bag")
-//        }
-//        else {
-//            UserDefaults.standard.set(true, forKey: "bag")
-//        }
-//       
-//        print(UserDefaults.standard.array(forKey: "bagID")!)
-//        print(UserDefaults.standard.array(forKey: "bag")!)
-//        UserDefaults.standard.set(list[sender.tag].productId, forKey: "bagID")
+        //let svc = SettingViewController()
+        
+        if UserDefaults.standard.bool(forKey: list[sender.tag].productId) {
+            UserDefaults.standard.set(false, forKey: list[sender.tag].productId)
+            SettingViewController.cartList.removeAll(where: { $0 == list[sender.tag].productId }) //-장바구니 개수
+        }
+        else {
+            UserDefaults.standard.set(true, forKey: list[sender.tag].productId)
+            SettingViewController.cartList.append(list[sender.tag].productId) //+장바구니 개수
+        }
+        //print(svc.cartList)
+
         collectionView.reloadData()
     }
 }

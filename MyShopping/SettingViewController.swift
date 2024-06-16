@@ -12,9 +12,12 @@ class SettingViewController: UIViewController {
     
     let tableView = UITableView()
     let titles = ["나의 장바구니 목록","자주 묻는 질문","1:1 문의", "알림 설정","탈퇴하기"]
+    static var cartList:[String] = []
+    static var getKey = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(SettingViewController.cartList)
         view.backgroundColor = .white
         navigationItem.title = "SETTING"
         
@@ -27,9 +30,11 @@ class SettingViewController: UIViewController {
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
         }
         tableView.separatorColor = .black
+        print(SettingViewController.cartList)
     }
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData() // TODO: EDIT PROFILE갔다가 뒤로 오면 userDefaults가 저장되는데 이미지는 안바뀌어서 바뀌도록
+        print(SettingViewController.cartList)
     }
 }
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
@@ -51,7 +56,9 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 UserDefaults.standard.set(nil, forKey: "date")
                 UserDefaults.standard.set(nil, forKey: "recentSearch")
                 UserDefaults.standard.set(false, forKey: "isUser")
-                //UserDefaults.standard.set(<#T##value: Any?##Any?#>, forKey: <#T##String#>)//장바구니
+                UserDefaults.standard.set(false, forKey: SettingViewController.getKey) //장바구니
+                SettingViewController.cartList.removeAll() //장바구니 개수
+                
                 let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
                 let SceneDelegate = windowScene?.delegate as? SceneDelegate
                 
@@ -99,7 +106,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel!.font = .systemFont(ofSize: 14)
             
             cell.bagListLabel2.text = "의 상품"
-            cell.bagListLabel.text = "??개"
+            cell.bagListLabel.text = "\(SettingViewController.cartList.count)개"
             cell.bagImage.image = UIImage(systemName: "heart.fill")
         }
         else {

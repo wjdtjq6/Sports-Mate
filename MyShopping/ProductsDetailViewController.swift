@@ -13,25 +13,25 @@ class ProductsDetailViewController: UIViewController {
     
     var link = ""
     var myTitle = ""
+    var getKey = "" //장바구니 기능 indexPath.item 가져와서 사용
+    
     let webView = WKWebView()
     let notFoundImage = UIImageView()
     let notFoundLabel = UILabel()
-    
-    //var cart:[Bool] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.title = myTitle
-        
-        if UserDefaults.standard.bool(forKey: "bag") {
+        if UserDefaults.standard.bool(forKey: getKey) {
             let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(rightBarButtonClicked))
             navigationItem.rightBarButtonItem = rightBarButton
+
         }
         else {
             let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(rightBarButtonClicked))
             navigationItem.rightBarButtonItem = rightBarButton
         }
+        print(UserDefaults.standard.bool(forKey: getKey))//테스트
 
         view.addSubview(webView)
         webView.snp.makeConstraints { make in
@@ -59,13 +59,16 @@ class ProductsDetailViewController: UIViewController {
         }
     }
     @objc func rightBarButtonClicked() {
-        if UserDefaults.standard.bool(forKey: "bag") {
+        if UserDefaults.standard.bool(forKey: getKey) {
+            UserDefaults.standard.set(false, forKey: getKey)
             navigationItem.rightBarButtonItem!.image = UIImage(systemName: "heart")
-            UserDefaults.standard.set(false, forKey: "bag")
+            SettingViewController.cartList.removeAll(where: { $0 == getKey }) //-장바구니 개수
         }
         else {
+            UserDefaults.standard.set(true, forKey: getKey)
             navigationItem.rightBarButtonItem!.image = UIImage(systemName: "heart.fill")
-            UserDefaults.standard.set(true, forKey: "bag")
+            SettingViewController.cartList.append(getKey) //+장바구니 개수
         }
+        print(SettingViewController.cartList)
     }
 }

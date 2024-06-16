@@ -51,7 +51,6 @@ class MainViewController: UIViewController {
             make.height.equalTo(1)
         }
         separator.backgroundColor = UIColor(red: 205/255, green: 205/255, blue: 205/255, alpha: 1.0)
-//        print(        UserDefaults.standard.array(forKey: "recentSearch")!)
         if list == [] {
             view.addSubview(noRecentImage)
             view.addSubview(noRecentLabel)

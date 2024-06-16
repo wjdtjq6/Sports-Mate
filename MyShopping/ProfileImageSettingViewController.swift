@@ -104,11 +104,5 @@ extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollect
         UserDefaults.standard.set(indexPath.item, forKey: "profile")
         collectionView.reloadData()
         profileImage.image = UIImage(named: "profile_"+UserDefaults.standard.string(forKey: "profile")!)
-    }
-//    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-//        print(indexPath.item)
-//        return true
-//    }
-    
-    
+    }    
 }
