@@ -51,13 +51,9 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             //let open = UIAlertAction(title: "open", style: .default)
             let delete = UIAlertAction(title: "확인", style: .destructive) { yesAlertClicked in
                 
-                UserDefaults.standard.set(nil, forKey: "nickname")
-                UserDefaults.standard.set(nil, forKey: "profile")
-                UserDefaults.standard.set(nil, forKey: "date")
-                UserDefaults.standard.set(nil, forKey: "recentSearch")
-                UserDefaults.standard.set(false, forKey: "isUser")
-                UserDefaults.standard.set(false, forKey: SettingViewController.getKey) //장바구니
-                SettingViewController.cartList.removeAll() //장바구니 개수
+                if let appDomain = Bundle.main.bundleIdentifier {
+                    UserDefaults.standard.removePersistentDomain(forName: appDomain) }
+                SettingViewController.cartList.removeAll()
                 
                 let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
                 let SceneDelegate = windowScene?.delegate as? SceneDelegate
@@ -106,7 +102,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel!.font = .systemFont(ofSize: 14)
             
             cell.bagListLabel2.text = "의 상품"
-            cell.bagListLabel.text = "\(SettingViewController.cartList.count)개"
+            cell.bagListLabel.text = "\(UserDefaults.standard.integer(forKey: "cartCount"))개"
+
             cell.bagImage.image = UIImage(systemName: "heart.fill")
         }
         else {

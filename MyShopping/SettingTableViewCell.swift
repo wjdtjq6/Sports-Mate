@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class SettingTableViewCell: UITableViewCell {
     
@@ -84,8 +85,7 @@ class SettingTableViewCell: UITableViewCell {
         
         bagListLabel.snp.makeConstraints { make in
             make.centerY.equalTo(contentView.safeAreaLayoutGuide)
-            make.trailing.equalTo(bagListLabel2.snp_leadingMargin)
-            make.width.equalTo(35)
+            make.trailing.equalTo(bagListLabel2.snp.leading)
         }
         bagListLabel.font = .boldSystemFont(ofSize: 14)
 

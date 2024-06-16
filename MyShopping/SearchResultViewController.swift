@@ -318,8 +318,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
             UserDefaults.standard.set(true, forKey: list[sender.tag].productId)
             SettingViewController.cartList.append(list[sender.tag].productId) //+장바구니 개수
         }
-        //print(svc.cartList)
-
+        UserDefaults.standard.set(SettingViewController.cartList.count, forKey: "cartCount")
         collectionView.reloadData()
     }
 }

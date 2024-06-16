@@ -69,6 +69,7 @@ class ProductsDetailViewController: UIViewController {
             navigationItem.rightBarButtonItem!.image = UIImage(systemName: "heart.fill")
             SettingViewController.cartList.append(getKey) //+장바구니 개수
         }
+        UserDefaults.standard.set(SettingViewController.cartList.count, forKey: "cartCount")
         print(SettingViewController.cartList)
     }
 }
