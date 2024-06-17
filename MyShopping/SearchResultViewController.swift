@@ -50,6 +50,7 @@ class SearchResultViewController: UIViewController {
         layout.sectionInset = .zero
         return layout
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

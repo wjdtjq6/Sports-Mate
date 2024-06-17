@@ -22,7 +22,7 @@ class ProfileNicknameSettingViewController: UIViewController {
     
     
     
-    let warnings = ["@", "#", "$", "%"]
+    let warnings = ["@", "#", "$", "%", "  "]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,7 +120,6 @@ class ProfileNicknameSettingViewController: UIViewController {
                 NSAttributedString.Key.foregroundColor : UIColor.black,
                 ], for: .normal)
             navigationItem.rightBarButtonItem = rightBarButton
-            //UINavigationItem().rightBarButtonItem = rightBarButton
         }
         else {
             completeButton.setTitle("완료", for: .normal)
@@ -154,7 +153,6 @@ class ProfileNicknameSettingViewController: UIViewController {
         }
     }
     @objc func nicknameWarning() {
-        
         if nicknameTextField.text!.contains(warnings[0]) {
             warningLabel.text = "닉네임에 @를 포함할 수 없어요"
         }
@@ -167,6 +165,10 @@ class ProfileNicknameSettingViewController: UIViewController {
         else if nicknameTextField.text!.contains(warnings[3]) {
             warningLabel.text = "닉네임에 %를 포함할 수 없어요"
         }
+        //스페이스바 두번 연속 불가능!
+        else if nicknameTextField.text!.contains(warnings[4]) {
+            warningLabel.text = "사용할 수 없는 닉네임입니다"
+        }
         else if !(nicknameTextField.text!.count >= 2 && nicknameTextField.text!.count < 10) {
             warningLabel.text = "2글자 이상 10글자 미만으로 설정해주세요"
         }
@@ -177,6 +179,14 @@ class ProfileNicknameSettingViewController: UIViewController {
             if nicknameTextField.text!.contains("\(i)") {
                 warningLabel.text = "닉네임에 숫자는 포함할 수 없어요"
             }
+        }
+        //처음,끝 스페이스 불가능!
+        var list:[Character] = []
+        for i in nicknameTextField.text! {
+            list.append(i)
+        }
+        if list.first == " " || list.last == " " {
+            warningLabel.text = "사용할 수 없는 닉네임입니다"
         }
     }
     @objc func profileButtonClicked() {
