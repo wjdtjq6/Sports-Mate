@@ -54,7 +54,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
                 let SceneDelegate = windowScene?.delegate as? SceneDelegate
                 
-                let navigationController = ViewController() //MainViewController()
+                let navigationController = ViewController()
             
                 SceneDelegate?.window?.rootViewController = UINavigationController(rootViewController: navigationController)
                 SceneDelegate?.window?.makeKeyAndVisible()

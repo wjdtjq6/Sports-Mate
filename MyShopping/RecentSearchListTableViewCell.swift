@@ -42,7 +42,6 @@ class RecentSearchListTableViewCell: UITableViewCell {
         }
         xmarkButton.setImage(UIImage(systemName: "xmark"), for: .normal)
         xmarkButton.tintColor = .black
-        //xmarkButton.addTarget(self, action: #selector(xmarkButtonClicked), for: .touchUpInside)
     }
 
     required init?(coder: NSCoder) {

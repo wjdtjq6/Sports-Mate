@@ -25,7 +25,6 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
         UserDefaults.standard.set(nil, forKey: "nickname")
         UserDefaults.standard.set(nil, forKey: "profile")
-        //UserDefaults.standard.set(nil, forKey: "recentSearch")
     }
     func configureHierarchy() {
         view.addSubview(appName)

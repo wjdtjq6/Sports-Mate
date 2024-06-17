@@ -8,8 +8,6 @@
 import UIKit
 import SnapKit
 
-//let images = ["profile_0","profile_1","profile_2","profile_3","profile_4","profile_5","profile_6","profile_7","profile_8","profile_9","profile_10","profile_11"]
-
 class ProfileNicknameSettingViewController: UIViewController {
     
     let profileButton = UIButton()
@@ -26,12 +24,6 @@ class ProfileNicknameSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if UserDefaults.standard.string(forKey: "nickname") != nil {
-            navigationItem.title = "EDIT PROFILE"
-        }
-        else {
-            navigationItem.title = "PROFILE SETTING"
-        }
         configureHierarchy()
         configureLayout()
         configureUI()
@@ -56,7 +48,6 @@ class ProfileNicknameSettingViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
             make.width.height.equalTo(100)
-            //make.edges.equalTo(profileImage).inset(1)
         }
         profileCamera.snp.makeConstraints { make in
             make.bottom.equalTo(profileButton.snp.bottom).inset(5)
@@ -74,7 +65,7 @@ class ProfileNicknameSettingViewController: UIViewController {
             make.height.equalTo(1)
         }
         warningLabel.snp.makeConstraints { make in
-            make.top.equalTo(separator.snp.bottom)//.offset(10)
+            make.top.equalTo(separator.snp.bottom)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(50)
             make.height.equalTo(40)
             
@@ -114,14 +105,20 @@ class ProfileNicknameSettingViewController: UIViewController {
         warningLabel.textColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
         warningLabel.font = .systemFont(ofSize: 13)
         if UserDefaults.standard.string(forKey: "nickname") != nil {
+            navigationItem.title = "EDIT PROFILE"
+
             let rightBarButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(completeButtonClicked))
             rightBarButton.setTitleTextAttributes([
                 NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16) ,
                 NSAttributedString.Key.foregroundColor : UIColor.black,
                 ], for: .normal)
             navigationItem.rightBarButtonItem = rightBarButton
+            
+            nicknameTextField.text = UserDefaults.standard.string(forKey: "nickname")
         }
         else {
+            navigationItem.title = "PROFILE SETTING"
+
             completeButton.setTitle("완료", for: .normal)
             completeButton.tintColor = .white
             completeButton.backgroundColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
@@ -133,17 +130,16 @@ class ProfileNicknameSettingViewController: UIViewController {
     @objc func completeButtonClicked() {
         if warningLabel.text == "사용할 수 있는 닉네임이에요" {
             UserDefaults.standard.set(nicknameTextField.text, forKey: "nickname")
-        }
-        if UserDefaults.standard.string(forKey: "nickname") != nil {
+            UserDefaults.standard.set(true, forKey: "isUser")
+            
             let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
             let SceneDelegate = windowScene?.delegate as? SceneDelegate
             
-            let navigationController = TabBarController() //MainViewController()
+            let navigationController = TabBarController()
         
             SceneDelegate?.window?.rootViewController = navigationController
             SceneDelegate?.window?.makeKeyAndVisible()
         }
-        UserDefaults.standard.set(true, forKey: "isUser")
         
         if UserDefaults.standard.string(forKey: "date") == nil {
             let df = DateFormatter()

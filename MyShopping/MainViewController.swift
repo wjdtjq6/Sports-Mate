@@ -22,15 +22,21 @@ class MainViewController: UIViewController {
     
     var list: [String] = []
     
+    var removingIndex = 0
+    //keyboard hide
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.keyboardDismissMode = .onDrag //keyboard hide
         view.backgroundColor = .white
         navigationItem.title = UserDefaults.standard.string(forKey: "nickname")!+"'s MY SHOPPING"
         navigationItem.backButtonTitle = ""
         view.addSubview(searchBar)
         view.addSubview(separator)
         searchBar.delegate = self
-        
+
         searchBar.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.height.equalTo(35)
@@ -124,7 +130,7 @@ class MainViewController: UIViewController {
         }
         
         noRecentLabel.snp.makeConstraints { make in
-            make.top.equalTo(noRecentImage.snp.bottom)//.offset(10)
+            make.top.equalTo(noRecentImage.snp.bottom)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
             make.width.equalTo(200)
             make.height.equalTo(50)
@@ -141,16 +147,16 @@ class MainViewController: UIViewController {
         list.removeAll()
         UserDefaults.standard.set(list, forKey: "recentSearch")
         tableView.reloadData()
+        viewWillAppear(true) // list가 없으면 최근검색어가 없어요
     }
 }
 extension MainViewController: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         list.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecentSearchListTableViewCell", for: indexPath) as! RecentSearchListTableViewCell
-        cell.recentLabel.text = list.reversed()[indexPath.row] //(UserDefaults.standard.array(forKey: "recentSearch")![indexPath.row] as! String)//
+        cell.recentLabel.text = list.reversed()[indexPath.row] 
         cell.xmarkButton.tag = indexPath.row
         cell.xmarkButton.addTarget(self, action: #selector(xmarkButtonClicked(sender: )), for: .touchUpInside)
         return cell
@@ -159,23 +165,38 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource, UISear
         list.remove(at: (list.count-1) - sender.tag)
         UserDefaults.standard.set(list, forKey: "recentSearch")
         tableView.reloadData()
+        if list.isEmpty {
+            viewWillAppear(true) // list가 없으면 최근검색어가 없어요
+        }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = SearchResultViewController()
-        vc.searchQuery = list[(list.count - 1) - indexPath.row]
+        vc.searchQuery = list[(list.count-1) - indexPath.row]
         SearchResultViewController().start = 1 // pagenation
         navigationController?.pushViewController(vc, animated: true)
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        list.append(searchBar.text!)
-        tableView.reloadData()
-        UserDefaults.standard.set(list, forKey: "recentSearch")
-        let vc = SearchResultViewController()
-        vc.searchQuery = searchBar.text!
-        SearchResultViewController().start = 1 //pagenation
-        navigationController?.pushViewController(vc, animated: true)
+        searchBar.text! = searchBar.text!.trimmingCharacters(in: .whitespaces)
+        if searchBar.text!.contains("  ") {
+            searchBar.text! = searchBar.text!.replacingOccurrences(of: " ", with: "")
+        }
+        if searchBar.text != "" {
+            if list.contains(searchBar.text!) {
+                list.removeAll { $0 == searchBar.text! }
+            }
+            list.append(searchBar.text!)
+            
+            tableView.reloadData()
+            UserDefaults.standard.set(list, forKey: "recentSearch")
+            let vc = SearchResultViewController()
+            vc.searchQuery = searchBar.text!
+            SearchResultViewController().start = 1 //pagenation
+            navigationController?.pushViewController(vc, animated: true)
+            
+            searchBar.text = ""
+        }
+       
         
-        searchBar.text = ""
     }
     
 }

@@ -120,7 +120,7 @@ class SearchResultViewController: UIViewController {
     }
     func notCollectionView() {
         resultLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)//.offset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.height.equalTo(40)
         }
@@ -292,7 +292,6 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         cell.image.kf.setImage(with: url)
         
         //TODO: 장바구니 기능
-        //UserDefaults.standard.synchronize()
         if UserDefaults.standard.bool(forKey: list[indexPath.item].productId) {
             cell.bagButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         }
@@ -306,7 +305,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         cell.mallNameLabel.text = list[indexPath.item].mallName
         
         let updatedTitle = list[indexPath.item].title.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
-        cell.titleLabel.text = updatedTitle//list[indexPath.item].title
+        cell.titleLabel.text = updatedTitle
         
         cell.lpriceLabel.text = "\(Int(list[indexPath.item].lprice)?.formatted() ?? String(0))"+"원"
         return cell
