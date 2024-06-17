@@ -17,7 +17,6 @@ class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(SettingViewController.cartList)
         view.backgroundColor = .white
         navigationItem.title = "SETTING"
         
@@ -30,11 +29,9 @@ class SettingViewController: UIViewController {
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
         }
         tableView.separatorColor = .black
-        print(SettingViewController.cartList)
     }
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData() // TODO: EDIT PROFILE갔다가 뒤로 오면 userDefaults가 저장되는데 이미지는 안바뀌어서 바뀌도록
-        print(SettingViewController.cartList)
     }
 }
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
@@ -46,24 +43,24 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             navigationController?.pushViewController(vc, animated: true)
         }
         else if indexPath.row == 5{
+            
             let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", preferredStyle: .alert)
 
-            //let open = UIAlertAction(title: "open", style: .default)
             let delete = UIAlertAction(title: "확인", style: .destructive) { yesAlertClicked in
-                
                 if let appDomain = Bundle.main.bundleIdentifier {
                     UserDefaults.standard.removePersistentDomain(forName: appDomain) }
                 SettingViewController.cartList.removeAll()
-                
+
                 let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
                 let SceneDelegate = windowScene?.delegate as? SceneDelegate
                 
                 let navigationController = ViewController() //MainViewController()
             
-                SceneDelegate?.window?.rootViewController = UINavigationController(rootViewController: navigationController) 
+                SceneDelegate?.window?.rootViewController = UINavigationController(rootViewController: navigationController)
                 SceneDelegate?.window?.makeKeyAndVisible()
             }
             let cancel = UIAlertAction(title: "취소", style: .cancel)
+
             
             alert.addAction(cancel)
             alert.addAction(delete)
@@ -102,8 +99,14 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel!.font = .systemFont(ofSize: 14)
             
             cell.bagListLabel2.text = "의 상품"
-            cell.bagListLabel.text = "\(UserDefaults.standard.integer(forKey: "cartCount"))개"
+            
+            if UserDefaults.standard.array(forKey: "cartCount") == nil {
+                cell.bagListLabel.text = "0개"
+            }
+            else {
+                cell.bagListLabel.text = "\(UserDefaults.standard.array(forKey: "cartCount")!.count)개"
 
+            }
             cell.bagImage.image = UIImage(systemName: "heart.fill")
         }
         else {

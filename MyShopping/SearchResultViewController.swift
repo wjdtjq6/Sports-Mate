@@ -66,7 +66,10 @@ class SearchResultViewController: UIViewController {
         callRequest()
         notCollectionView()
         yesCollectionView()
-        
+        //장바구니 껐다 켜서 좋아요 눌렀을 때 다시 0부터 시작의 해결 방법!!
+        if UserDefaults.standard.array(forKey: "cartCount") != nil {
+            SettingViewController.cartList = UserDefaults.standard.array(forKey: "cartCount") as! [String]
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         collectionView.reloadData()
@@ -312,13 +315,13 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         
         if UserDefaults.standard.bool(forKey: list[sender.tag].productId) {
             UserDefaults.standard.set(false, forKey: list[sender.tag].productId)
-            SettingViewController.cartList.removeAll(where: { $0 == list[sender.tag].productId }) //-장바구니 개수
+            SettingViewController.cartList.removeAll(where: { $0 == list[sender.tag].productId })//-장바구니 개수
         }
         else {
             UserDefaults.standard.set(true, forKey: list[sender.tag].productId)
-            SettingViewController.cartList.append(list[sender.tag].productId) //+장바구니 개수
+            SettingViewController.cartList.append(list[sender.tag].productId)//+장바구니 개수//cartList가 아니라!! userDefaults에 저장해야함!
         }
-        UserDefaults.standard.set(SettingViewController.cartList.count, forKey: "cartCount")
+        UserDefaults.standard.set(SettingViewController.cartList, forKey: "cartCount")
         collectionView.reloadData()
     }
 }

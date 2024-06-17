@@ -32,7 +32,6 @@ class ProfileNicknameSettingViewController: UIViewController {
         else {
             navigationItem.title = "PROFILE SETTING"
         }
-        navigationItem.backButtonTitle = ""
         configureHierarchy()
         configureLayout()
         configureUI()
@@ -50,6 +49,8 @@ class ProfileNicknameSettingViewController: UIViewController {
         view.addSubview(completeButton)
     }
     func configureLayout() {
+        
+        navigationItem.backButtonTitle = ""
 
         profileButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
@@ -167,7 +168,7 @@ class ProfileNicknameSettingViewController: UIViewController {
             warningLabel.text = "닉네임에 %를 포함할 수 없어요"
         }
         else if !(nicknameTextField.text!.count >= 2 && nicknameTextField.text!.count < 10) {
-            warningLabel.text = "2글자 이상 10글자 미안으로 설정해주세요"
+            warningLabel.text = "2글자 이상 10글자 미만으로 설정해주세요"
         }
         else {
             warningLabel.text = "사용할 수 있는 닉네임이에요"

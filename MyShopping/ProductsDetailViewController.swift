@@ -25,13 +25,11 @@ class ProductsDetailViewController: UIViewController {
         if UserDefaults.standard.bool(forKey: getKey) {
             let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(rightBarButtonClicked))
             navigationItem.rightBarButtonItem = rightBarButton
-
         }
         else {
             let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(rightBarButtonClicked))
             navigationItem.rightBarButtonItem = rightBarButton
         }
-        print(UserDefaults.standard.bool(forKey: getKey))//테스트
 
         view.addSubview(webView)
         webView.snp.makeConstraints { make in
@@ -62,14 +60,14 @@ class ProductsDetailViewController: UIViewController {
         if UserDefaults.standard.bool(forKey: getKey) {
             UserDefaults.standard.set(false, forKey: getKey)
             navigationItem.rightBarButtonItem!.image = UIImage(systemName: "heart")
-            SettingViewController.cartList.removeAll(where: { $0 == getKey }) //-장바구니 개수
+            
+            SettingViewController.cartList.removeAll(where: { $0 == getKey })//-장바구니 개수
         }
         else {
             UserDefaults.standard.set(true, forKey: getKey)
             navigationItem.rightBarButtonItem!.image = UIImage(systemName: "heart.fill")
-            SettingViewController.cartList.append(getKey) //+장바구니 개수
+            SettingViewController.cartList.append(getKey)//+장바구니 개수//cartList가 아니라!! userDefaults에 저장해야함!
         }
-        UserDefaults.standard.set(SettingViewController.cartList.count, forKey: "cartCount")
-        print(SettingViewController.cartList)
+        UserDefaults.standard.set(SettingViewController.cartList, forKey: "cartCount")
     }
 }

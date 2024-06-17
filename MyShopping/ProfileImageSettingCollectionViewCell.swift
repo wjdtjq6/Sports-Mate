@@ -23,7 +23,6 @@ class ProfileImageSettingCollectionViewCell: UICollectionViewCell {
         profileImage.layer.borderWidth = 1
         profileImage.layer.borderColor = UIColor(red: 130/255, green: 130/255, blue: 130/255, alpha: 0.5).cgColor
         profileImage.alpha = 0.5
-
     }
     
     required init?(coder: NSCoder) {
