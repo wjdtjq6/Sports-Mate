@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Alamofire
 import Kingfisher
+import Toast
 
 struct Shopping: Codable {
     let total: Int
@@ -95,11 +96,11 @@ class SearchResultViewController: UIViewController {
                 if self.start == 1 && !list.isEmpty { //검색어 없을때 && !list.isEmpty만 추가해서 해결!!!!
                     self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
                 }
-
                 self.totalCount = value.total
                 resultLabel.text = "\(totalCount.formatted())개의 검색결과"
             case .failure(let error):
                 print(error)
+                self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
             }
         }
         
@@ -124,7 +125,6 @@ class SearchResultViewController: UIViewController {
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.height.equalTo(40)
         }
-        //resultLabel.text = "\(totalCount)개의 검색결과"
         resultLabel.textColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
         resultLabel.font = .boldSystemFont(ofSize: 14)
         
@@ -263,12 +263,11 @@ extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         for i in indexPaths {
             if i.row == list.count-2 && start+30 <= totalCount {
-                start += 31
+                start += 30
                 callRequest()
             }
         }
     }
-    
 }
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

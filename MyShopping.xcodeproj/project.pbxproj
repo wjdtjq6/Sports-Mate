@@ -22,6 +22,7 @@
 		0316E7BD2C1AFB1400E6724D /* ProfileImageSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0316E7BC2C1AFB1400E6724D /* ProfileImageSettingViewController.swift */; };
 		0316E7BF2C1B0DE400E6724D /* ProfileImageSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0316E7BE2C1B0DE400E6724D /* ProfileImageSettingCollectionViewCell.swift */; };
 		0316E7C12C1BF1FA00E6724D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0316E7C02C1BF1FA00E6724D /* MainViewController.swift */; };
+		0333927E2C216A3800383150 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 0333927D2C216A3800383150 /* Toast */; };
 		036068D32C1C0DEE008E5680 /* RecentSearchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068D22C1C0DEE008E5680 /* RecentSearchListTableViewCell.swift */; };
 		036068D52C1C1F5F008E5680 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068D42C1C1F5F008E5680 /* SearchResultViewController.swift */; };
 		036068D72C1C3534008E5680 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068D62C1C3534008E5680 /* TabBarController.swift */; };
@@ -62,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0333927E2C216A3800383150 /* Toast in Frameworks */,
 				0316E7B32C1ADA0D00E6724D /* SnapKit in Frameworks */,
 				0316E7B62C1ADA1700E6724D /* Alamofire in Frameworks */,
 				0316E7AB2C1AD9FB00E6724D /* Kingfisher in Frameworks */,
@@ -138,6 +140,7 @@
 				0316E7B22C1ADA0D00E6724D /* SnapKit */,
 				0316E7B52C1ADA1700E6724D /* Alamofire */,
 				0316E7BA2C1AF85800E6724D /* TextFieldEffects */,
+				0333927D2C216A3800383150 /* Toast */,
 			);
 			productName = MyShopping;
 			productReference = 0316E78F2C1AD62100E6724D /* MyShopping.app */;
@@ -173,6 +176,7 @@
 				0316E7B12C1ADA0D00E6724D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				0316E7B42C1ADA1700E6724D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				0316E7B92C1AF85800E6724D /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
+				0333927C2C216A3800383150 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 0316E7902C1AD62100E6724D /* Products */;
 			projectDirPath = "";
@@ -493,6 +497,14 @@
 				minimumVersion = 1.7.0;
 			};
 		};
+		0333927C2C216A3800383150 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -520,6 +532,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0316E7B92C1AF85800E6724D /* XCRemoteSwiftPackageReference "TextFieldEffects" */;
 			productName = TextFieldEffects;
+		};
+		0333927D2C216A3800383150 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0333927C2C216A3800383150 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

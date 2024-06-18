@@ -107,7 +107,7 @@ class ProfileNicknameSettingViewController: UIViewController {
         if UserDefaults.standard.string(forKey: "nickname") != nil {
             navigationItem.title = "EDIT PROFILE"
 
-            let rightBarButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(completeButtonClicked))
+            let rightBarButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(completeButtonClicked))//pop??
             rightBarButton.setTitleTextAttributes([
                 NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16) ,
                 NSAttributedString.Key.foregroundColor : UIColor.black,

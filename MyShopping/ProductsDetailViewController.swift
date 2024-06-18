@@ -8,8 +8,9 @@
 import UIKit
 import SnapKit
 import WebKit
+import Toast
 
-class ProductsDetailViewController: UIViewController {
+class ProductsDetailViewController: UIViewController,WKNavigationDelegate {
     
     var link = ""
     var myTitle = ""
@@ -20,6 +21,7 @@ class ProductsDetailViewController: UIViewController {
     let notFoundLabel = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
+        webView.navigationDelegate = self
         view.backgroundColor = .white
         navigationItem.title = myTitle
         if UserDefaults.standard.bool(forKey: getKey) {
@@ -40,7 +42,7 @@ class ProductsDetailViewController: UIViewController {
             let request = URLRequest(url: url!)
             webView.load(request)
         }
-        else {
+        else if url == nil {
             view.addSubview(notFoundImage)
             notFoundImage.snp.makeConstraints { make in
                 make.center.equalTo(view.safeAreaLayoutGuide)
@@ -55,6 +57,12 @@ class ProductsDetailViewController: UIViewController {
             notFoundLabel.text = "Link를 찾을 수 없어요"
             notFoundLabel.font = .boldSystemFont(ofSize: 15)
         }
+        else {
+            self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
+        }
+    }
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: any Error) {
+        self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
     }
     @objc func rightBarButtonClicked() {
         if UserDefaults.standard.bool(forKey: getKey) {
