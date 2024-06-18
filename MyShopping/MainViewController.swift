@@ -174,6 +174,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource, UISear
         vc.searchQuery = list[(list.count-1) - indexPath.row]
         SearchResultViewController().start = 1 // pagenation
         navigationController?.pushViewController(vc, animated: true)
+        
+        tableView.deselectRow(at: indexPath, animated: true) //선택 시 색변경 막음
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text! = searchBar.text!.trimmingCharacters(in: .whitespaces)
