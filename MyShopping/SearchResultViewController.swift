@@ -165,7 +165,7 @@ class SearchResultViewController: UIViewController {
         dscButton.addTarget(self, action: #selector(dsc), for: .touchUpInside)
     }
     @objc func sim() {
-        sort = "sim"
+        start = 1
         simButton.setTitleColor(.white, for: .normal)
         simButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
         
@@ -178,8 +178,7 @@ class SearchResultViewController: UIViewController {
         dscButton.backgroundColor = .white
         dscButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
         
-        Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
-            
+        Network.shared.callRequest(searchQuery: searchQuery, sort: "sim", start: 1, success: { value in
             if self.start == 1 {
                 self.list = value.items
             }
@@ -201,6 +200,8 @@ class SearchResultViewController: UIViewController {
         collectionView.reloadData()
     }
     @objc func date() {
+        start = 1
+
         dateButton.setTitleColor(.white, for: .normal)
         dateButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
         
@@ -213,8 +214,7 @@ class SearchResultViewController: UIViewController {
         simButton.backgroundColor = .white
         simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
         
-        Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
-            
+        Network.shared.callRequest(searchQuery: searchQuery, sort: "date", start: 1, success: { value in
             if self.start == 1 {
                 self.list = value.items
             }
@@ -235,6 +235,8 @@ class SearchResultViewController: UIViewController {
         collectionView.reloadData()
     }
     @objc func asc() {
+        start = 1
+
         ascButton.setTitleColor(.white, for: .normal)
         ascButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
         
@@ -247,8 +249,7 @@ class SearchResultViewController: UIViewController {
         simButton.backgroundColor = .white
         simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
         
-        Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
-            
+        Network.shared.callRequest(searchQuery: searchQuery, sort: "dsc", start: 1, success: { value in
             if self.start == 1 {
                 self.list = value.items
             }
@@ -269,6 +270,8 @@ class SearchResultViewController: UIViewController {
         collectionView.reloadData()
     }
     @objc func dsc() {
+        start = 1
+
         dscButton.setTitleColor(.white, for: .normal)
         dscButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
         
@@ -281,8 +284,7 @@ class SearchResultViewController: UIViewController {
         simButton.backgroundColor = .white
         simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
         
-        Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
-            
+        Network.shared.callRequest(searchQuery: searchQuery, sort: "asc", start: 1, success: { value in
             if self.start == 1 {
                 self.list = value.items
             }
@@ -371,9 +373,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         cell.lpriceLabel.text = "\(Int(list[indexPath.item].lprice)?.formatted() ?? String(0))"+"원"
         return cell
     }
-    @objc func bagButtonClicked(sender: UIButton) {
-        //let svc = SettingViewController()
-        
+    @objc func bagButtonClicked(sender: UIButton) {        
         if UserDefaults.standard.bool(forKey: list[sender.tag].productId) {
             UserDefaults.standard.set(false, forKey: list[sender.tag].productId)
             SettingViewController.cartList.removeAll(where: { $0 == list[sender.tag].productId })//-장바구니 개수

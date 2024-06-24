@@ -24,6 +24,7 @@
 		0316E7C12C1BF1FA00E6724D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0316E7C02C1BF1FA00E6724D /* MainViewController.swift */; };
 		0333927E2C216A3800383150 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 0333927D2C216A3800383150 /* Toast */; };
 		033392BF2C252BB600383150 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033392BE2C252BB600383150 /* Network.swift */; };
+		033392E62C2949D300383150 /* SettingViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033392E52C2949D300383150 /* SettingViewController+Extension.swift */; };
 		036068D32C1C0DEE008E5680 /* RecentSearchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068D22C1C0DEE008E5680 /* RecentSearchListTableViewCell.swift */; };
 		036068D52C1C1F5F008E5680 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068D42C1C1F5F008E5680 /* SearchResultViewController.swift */; };
 		036068D72C1C3534008E5680 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068D62C1C3534008E5680 /* TabBarController.swift */; };
@@ -49,6 +50,7 @@
 		0316E7BE2C1B0DE400E6724D /* ProfileImageSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSettingCollectionViewCell.swift; sourceTree = "<group>"; };
 		0316E7C02C1BF1FA00E6724D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		033392BE2C252BB600383150 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		033392E52C2949D300383150 /* SettingViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingViewController+Extension.swift"; sourceTree = "<group>"; };
 		036068D22C1C0DEE008E5680 /* RecentSearchListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchListTableViewCell.swift; sourceTree = "<group>"; };
 		036068D42C1C1F5F008E5680 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		036068D62C1C3534008E5680 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				036068DA2C1C5EA0008E5680 /* SearchResultCollectionViewCell.swift */,
 				036068E22C1D5A56008E5680 /* ProductsDetailViewController.swift */,
 				036068D82C1C367D008E5680 /* SettingViewController.swift */,
+				033392E52C2949D300383150 /* SettingViewController+Extension.swift */,
 				036068E42C1DAC3F008E5680 /* SettingTableViewCell.swift */,
 				036068DC2C1C7C4E008E5680 /* .gitignore */,
 				036068E02C1C7D40008E5680 /* Private.swift */,
@@ -215,6 +218,7 @@
 				036068D92C1C367D008E5680 /* SettingViewController.swift in Sources */,
 				036068D52C1C1F5F008E5680 /* SearchResultViewController.swift in Sources */,
 				0316E7972C1AD62100E6724D /* ViewController.swift in Sources */,
+				033392E62C2949D300383150 /* SettingViewController+Extension.swift in Sources */,
 				036068D72C1C3534008E5680 /* TabBarController.swift in Sources */,
 				036068E52C1DAC3F008E5680 /* SettingTableViewCell.swift in Sources */,
 				0316E7B82C1AE01D00E6724D /* ProfileNicknameSettingViewController.swift in Sources */,
