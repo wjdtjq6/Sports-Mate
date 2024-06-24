@@ -7,26 +7,10 @@
 
 import UIKit
 import SnapKit
-import Alamofire
 import Kingfisher
 import Toast
 
-struct Shopping: Codable {
-    let total: Int
-    let start: Int
-    let items: [Items]
-}
-struct Items: Codable {
-    let title: String
-    let mallName: String
-    let image: String
-    let lprice: String
-    
-    let productId: String
-    let link: String
-}
 class SearchResultViewController: UIViewController {
-
     var list = [Items]()
     var totalCount = 0
     var start = 1
@@ -65,7 +49,30 @@ class SearchResultViewController: UIViewController {
         view.addSubview(dateButton)
         view.addSubview(ascButton)
         view.addSubview(dscButton)
-        callRequest()
+        print(list)
+       
+        Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
+            
+            if self.start == 1 {
+                self.list = value.items
+            }
+            else {
+                self.list.append(contentsOf: value.items)
+            }
+            self.collectionView.reloadData()//escaping closure recomment!
+
+            if self.start == 1 && !self.list.isEmpty { //검색어 없을때 && !list.isEmpty만 추가해서 해결!!!!
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            }
+            self.totalCount = value.total
+            self.resultLabel.text = "\(self.totalCount.formatted())개의 검색결과"
+        
+           
+        }, failure: {
+            self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
+            }
+        )
+        
         notCollectionView()
         yesCollectionView()
         //장바구니 껐다 켜서 좋아요 눌렀을 때 다시 0부터 시작의 해결 방법!!
@@ -75,35 +82,6 @@ class SearchResultViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         collectionView.reloadData()
-    }
-    func callRequest() {
-        let url = "https://openapi.naver.com/v1/search/shop.json?display=30&query=\(searchQuery)&sort=\(sort)&start=\(start)"
-        let header: HTTPHeaders = [
-            "X-Naver-Client-Id": Private.naverId,
-            "X-Naver-Client-Secret": Private.naverPassword
-        ]
-        AF.request(url,headers: header).responseDecodable(of: Shopping.self) { [self] response in
-            switch response.result {
-            case .success(let value):
-                if self.start == 1 {
-                    self.list = value.items
-                }
-                else {
-                    self.list.append(contentsOf: value.items)
-                }
-                collectionView.reloadData()
-
-                if self.start == 1 && !list.isEmpty { //검색어 없을때 && !list.isEmpty만 추가해서 해결!!!!
-                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-                }
-                self.totalCount = value.total
-                resultLabel.text = "\(totalCount.formatted())개의 검색결과"
-            case .failure(let error):
-                print(error)
-                self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
-            }
-        }
-        
     }
     func yesCollectionView() {
         view.addSubview(collectionView)
@@ -200,12 +178,29 @@ class SearchResultViewController: UIViewController {
         dscButton.backgroundColor = .white
         dscButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
         
-        start = 1
-        callRequest()
+        Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
+            
+            if self.start == 1 {
+                self.list = value.items
+            }
+            else {
+                self.list.append(contentsOf: value.items)
+            }
+            self.collectionView.reloadData()//escaping closure recomment!
+
+            if self.start == 1 && !self.list.isEmpty { //검색어 없을때 && !list.isEmpty만 추가해서 해결!!!!
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            }
+            self.totalCount = value.total
+            self.resultLabel.text = "\(self.totalCount.formatted())개의 검색결과"
+        }, failure: {
+            self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
+            }
+        )
+        
         collectionView.reloadData()
     }
     @objc func date() {
-        sort = "date"
         dateButton.setTitleColor(.white, for: .normal)
         dateButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
         
@@ -218,12 +213,28 @@ class SearchResultViewController: UIViewController {
         simButton.backgroundColor = .white
         simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
         
-        start = 1
-        callRequest()
+        Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
+            
+            if self.start == 1 {
+                self.list = value.items
+            }
+            else {
+                self.list.append(contentsOf: value.items)
+            }
+            self.collectionView.reloadData()//escaping closure recomment!
+
+            if self.start == 1 && !self.list.isEmpty { //검색어 없을때 && !list.isEmpty만 추가해서 해결!!!!
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            }
+            self.totalCount = value.total
+            self.resultLabel.text = "\(self.totalCount.formatted())개의 검색결과"
+        }, failure: {
+            self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
+            }
+        )
         collectionView.reloadData()
     }
     @objc func asc() {
-        sort = "dsc"
         ascButton.setTitleColor(.white, for: .normal)
         ascButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
         
@@ -236,12 +247,28 @@ class SearchResultViewController: UIViewController {
         simButton.backgroundColor = .white
         simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
         
-        start = 1
-        callRequest()
+        Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
+            
+            if self.start == 1 {
+                self.list = value.items
+            }
+            else {
+                self.list.append(contentsOf: value.items)
+            }
+            self.collectionView.reloadData()//escaping closure recomment!
+
+            if self.start == 1 && !self.list.isEmpty { //검색어 없을때 && !list.isEmpty만 추가해서 해결!!!!
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            }
+            self.totalCount = value.total
+            self.resultLabel.text = "\(self.totalCount.formatted())개의 검색결과"
+        }, failure: {
+            self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
+            }
+        )
         collectionView.reloadData()
     }
     @objc func dsc() {
-        sort = "asc"
         dscButton.setTitleColor(.white, for: .normal)
         dscButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
         
@@ -254,8 +281,25 @@ class SearchResultViewController: UIViewController {
         simButton.backgroundColor = .white
         simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
         
-        start = 1
-        callRequest()
+        Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
+            
+            if self.start == 1 {
+                self.list = value.items
+            }
+            else {
+                self.list.append(contentsOf: value.items)
+            }
+            self.collectionView.reloadData()//escaping closure recomment!
+
+            if self.start == 1 && !self.list.isEmpty { //검색어 없을때 && !list.isEmpty만 추가해서 해결!!!!
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            }
+            self.totalCount = value.total
+            self.resultLabel.text = "\(self.totalCount.formatted())개의 검색결과"
+        }, failure: {
+            self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
+            }
+        )
         collectionView.reloadData()
     }
 }
@@ -264,7 +308,25 @@ extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
         for i in indexPaths {
             if i.row == list.count-2 && start+30 <= totalCount {
                 start += 30
-                callRequest()
+                Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
+                    
+                    if self.start == 1 {
+                        self.list = value.items
+                    }
+                    else {
+                        self.list.append(contentsOf: value.items)
+                    }
+                    self.collectionView.reloadData()//escaping closure recomment!
+
+                    if self.start == 1 && !self.list.isEmpty { //검색어 없을때 && !list.isEmpty만 추가해서 해결!!!!
+                        self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                    }
+                    self.totalCount = value.total
+                    self.resultLabel.text = "\(self.totalCount.formatted())개의 검색결과"
+                }, failure: {
+                    self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
+                    }
+                )
             }
         }
     }

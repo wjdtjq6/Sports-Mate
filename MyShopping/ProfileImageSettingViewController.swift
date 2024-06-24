@@ -91,8 +91,12 @@ extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileImageSettingCollectionViewCell", for: indexPath) as! ProfileImageSettingCollectionViewCell
-        cell.profileImage.image = UIImage(named: "profile_"+"\(indexPath.item)")
-        if UserDefaults.standard.string(forKey: "profile") != nil && Int(UserDefaults.standard.string(forKey: "profile")!) == indexPath.item {
+        let profileNumber = UserDefaults.standard.string(forKey: "profile")
+        let profileImage = UIImage(named: "profile_"+"\(indexPath.item)")
+        
+        
+        cell.profileImage.image = profileImage
+        if profileNumber != nil && Int(profileNumber!) == indexPath.item {
             cell.profileImage.layer.borderWidth = 3
             cell.profileImage.layer.borderColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0).cgColor
             cell.profileImage.alpha = 1
