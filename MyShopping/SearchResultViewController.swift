@@ -9,9 +9,11 @@ import UIKit
 import SnapKit
 import Kingfisher
 import Toast
+import RealmSwift
 
 class SearchResultViewController: UIViewController {
     var list = [Items]()
+    var list2: Results<likeList>!
     var totalCount = 0
     var start = 1
     var searchQuery = ""
@@ -24,7 +26,9 @@ class SearchResultViewController: UIViewController {
     let dateButton = UIButton()
     let ascButton = UIButton()
     let dscButton = UIButton()
-    
+    //create 1.Realm 위치 찾기
+    let realm = try! Realm()
+
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     func collectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
@@ -38,6 +42,8 @@ class SearchResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        list2 = realm.objects(likeList.self)
+
         view.backgroundColor = .white
 
         navigationItem.title = searchQuery
@@ -49,7 +55,6 @@ class SearchResultViewController: UIViewController {
         view.addSubview(dateButton)
         view.addSubview(ascButton)
         view.addSubview(dscButton)
-        print(list)
        
         Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
             
@@ -355,6 +360,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         cell.image.kf.setImage(with: url)
         
         //TODO: 장바구니 기능
+
         if UserDefaults.standard.bool(forKey: list[indexPath.item].productId) {
             cell.bagButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         }
@@ -373,14 +379,51 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         cell.lpriceLabel.text = "\(Int(list[indexPath.item].lprice)?.formatted() ?? String(0))"+"원"
         return cell
     }
-    @objc func bagButtonClicked(sender: UIButton) {        
+    @objc func bagButtonClicked(sender: UIButton) {
+        let productId = list[sender.tag].productId
+
+        //2.
+        let data = likeList(image: list[sender.tag].image, mallName: list[sender.tag].mallName, title: list[sender.tag].title, lprice: list[sender.tag].lprice, link: list[sender.tag].link, productId: list[sender.tag].productId)
+
         if UserDefaults.standard.bool(forKey: list[sender.tag].productId) {
             UserDefaults.standard.set(false, forKey: list[sender.tag].productId)
-            SettingViewController.cartList.removeAll(where: { $0 == list[sender.tag].productId })//-장바구니 개수
+            SettingViewController.cartList.removeAll(where: { $0 == productId })//-장바구니 개수
+//            
+//            var arr = [likeList]()
+//            for item in list2 {
+//                if item.productId == productId {
+//                    arr.append(item)
+//                }
+//            }
+//            let delete = arr.first!
+            //==>
+//            let delete = list2.where{
+//                $0.productId == productId }
+//            try! realm.write({
+//                print(list2[sender.tag].id)
+//                //realm.delete(list2[sender.tag])
+//                realm.delete(delete)
+//                print("Realm delete Success")
+//            })
+            //==>
+            if let delete = list2.first(where: { $0.productId == list[sender.tag].productId }) {//.where{ $0.productId == productId }[0] {
+                try! realm.write{
+                    print(list2[sender.tag].id)
+                    //realm.delete(list2[sender.tag])
+                    realm.delete(delete)
+                    print("Realm delete Success")
+                }
+            }
+            
         }
         else {
             UserDefaults.standard.set(true, forKey: list[sender.tag].productId)
             SettingViewController.cartList.append(list[sender.tag].productId)//+장바구니 개수//cartList가 아니라!! userDefaults에 저장해야함!
+            //3.
+            try! realm.write {
+                realm.add(data)
+                print("Realm Create Success")
+            }
         }
         UserDefaults.standard.set(SettingViewController.cartList, forKey: "cartCount")
         collectionView.reloadData()

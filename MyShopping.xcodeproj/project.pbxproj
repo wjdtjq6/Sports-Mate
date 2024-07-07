@@ -34,7 +34,25 @@
 		036068E12C1C7D40008E5680 /* Private.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068E02C1C7D40008E5680 /* Private.swift */; };
 		036068E32C1D5A56008E5680 /* ProductsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068E22C1D5A56008E5680 /* ProductsDetailViewController.swift */; };
 		036068E52C1DAC3F008E5680 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068E42C1DAC3F008E5680 /* SettingTableViewCell.swift */; };
+		03D110AF2C3A36D800481E36 /* LikeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D110AE2C3A36D800481E36 /* LikeListViewController.swift */; };
+		03D110B12C3A3BCB00481E36 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D110B02C3A3BCB00481E36 /* RealmModel.swift */; };
+		03D110B42C3A3C0300481E36 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03D110B32C3A3C0300481E36 /* RealmSwift */; };
+		03D110B52C3A7F0800481E36 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 03D110B32C3A3C0300481E36 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		03D110B62C3A7F0800481E36 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				03D110B52C3A7F0800481E36 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0316E78F2C1AD62100E6724D /* MyShopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyShopping.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +78,8 @@
 		036068E02C1C7D40008E5680 /* Private.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Private.swift; sourceTree = "<group>"; };
 		036068E22C1D5A56008E5680 /* ProductsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsDetailViewController.swift; sourceTree = "<group>"; };
 		036068E42C1DAC3F008E5680 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		03D110AE2C3A36D800481E36 /* LikeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListViewController.swift; sourceTree = "<group>"; };
+		03D110B02C3A3BCB00481E36 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +89,7 @@
 			files = (
 				0333927E2C216A3800383150 /* Toast in Frameworks */,
 				0316E7B32C1ADA0D00E6724D /* SnapKit in Frameworks */,
+				03D110B42C3A3C0300481E36 /* RealmSwift in Frameworks */,
 				0316E7B62C1ADA1700E6724D /* Alamofire in Frameworks */,
 				0316E7AB2C1AD9FB00E6724D /* Kingfisher in Frameworks */,
 				0316E7A82C1AD9F100E6724D /* IQKeyboardManagerSwift in Frameworks */,
@@ -120,6 +141,8 @@
 				036068DC2C1C7C4E008E5680 /* .gitignore */,
 				036068E02C1C7D40008E5680 /* Private.swift */,
 				033392BE2C252BB600383150 /* Network.swift */,
+				03D110AE2C3A36D800481E36 /* LikeListViewController.swift */,
+				03D110B02C3A3BCB00481E36 /* RealmModel.swift */,
 			);
 			path = MyShopping;
 			sourceTree = "<group>";
@@ -134,6 +157,7 @@
 				0316E78B2C1AD62100E6724D /* Sources */,
 				0316E78C2C1AD62100E6724D /* Frameworks */,
 				0316E78D2C1AD62100E6724D /* Resources */,
+				03D110B62C3A7F0800481E36 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -147,6 +171,7 @@
 				0316E7B52C1ADA1700E6724D /* Alamofire */,
 				0316E7BA2C1AF85800E6724D /* TextFieldEffects */,
 				0333927D2C216A3800383150 /* Toast */,
+				03D110B32C3A3C0300481E36 /* RealmSwift */,
 			);
 			productName = MyShopping;
 			productReference = 0316E78F2C1AD62100E6724D /* MyShopping.app */;
@@ -183,6 +208,7 @@
 				0316E7B42C1ADA1700E6724D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				0316E7B92C1AF85800E6724D /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
 				0333927C2C216A3800383150 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				03D110B22C3A3C0300481E36 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 0316E7902C1AD62100E6724D /* Products */;
 			projectDirPath = "";
@@ -214,6 +240,7 @@
 			files = (
 				0316E7C12C1BF1FA00E6724D /* MainViewController.swift in Sources */,
 				036068E12C1C7D40008E5680 /* Private.swift in Sources */,
+				03D110B12C3A3BCB00481E36 /* RealmModel.swift in Sources */,
 				033392BF2C252BB600383150 /* Network.swift in Sources */,
 				036068D92C1C367D008E5680 /* SettingViewController.swift in Sources */,
 				036068D52C1C1F5F008E5680 /* SearchResultViewController.swift in Sources */,
@@ -227,6 +254,7 @@
 				036068DB2C1C5EA0008E5680 /* SearchResultCollectionViewCell.swift in Sources */,
 				036068D32C1C0DEE008E5680 /* RecentSearchListTableViewCell.swift in Sources */,
 				0316E7952C1AD62100E6724D /* SceneDelegate.swift in Sources */,
+				03D110AF2C3A36D800481E36 /* LikeListViewController.swift in Sources */,
 				0316E7BD2C1AFB1400E6724D /* ProfileImageSettingViewController.swift in Sources */,
 				0316E7BF2C1B0DE400E6724D /* ProfileImageSettingCollectionViewCell.swift in Sources */,
 			);
@@ -513,6 +541,14 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		03D110B22C3A3C0300481E36 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -545,6 +581,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0333927C2C216A3800383150 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		03D110B32C3A3C0300481E36 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03D110B22C3A3C0300481E36 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

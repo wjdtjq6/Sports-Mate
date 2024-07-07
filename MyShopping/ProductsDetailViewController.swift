@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import WebKit
 import Toast
+import RealmSwift
 
 class ProductsDetailViewController: UIViewController,WKNavigationDelegate {
     
@@ -19,8 +20,13 @@ class ProductsDetailViewController: UIViewController,WKNavigationDelegate {
     let webView = WKWebView()
     let notFoundImage = UIImageView()
     let notFoundLabel = UILabel()
+    
+    var list: Results<likeList>!//realm
+    let realm = try! Realm()//realm
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        list = realm.objects(likeList.self)//realm
         webView.navigationDelegate = self
         view.backgroundColor = .white
         navigationItem.title = myTitle
@@ -65,16 +71,27 @@ class ProductsDetailViewController: UIViewController,WKNavigationDelegate {
         self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
     }
     @objc func rightBarButtonClicked() {
+        let data = likeList(image: "", mallName: "", title: myTitle, lprice: "", link: link, productId: "")
+
         if UserDefaults.standard.bool(forKey: getKey) {
             UserDefaults.standard.set(false, forKey: getKey)
             navigationItem.rightBarButtonItem!.image = UIImage(systemName: "heart")
-            
             SettingViewController.cartList.removeAll(where: { $0 == getKey })//-장바구니 개수
+            if let delete = list.first(where: { $0.productId == getKey }) {
+                try! realm.write {
+                    realm.delete(delete)
+                    print("Realm 삭제 성공")
+                }
+            }
         }
         else {
             UserDefaults.standard.set(true, forKey: getKey)
             navigationItem.rightBarButtonItem!.image = UIImage(systemName: "heart.fill")
             SettingViewController.cartList.append(getKey)//+장바구니 개수//cartList가 아니라!! userDefaults에 저장해야함!
+            try! realm.write {
+                realm.add(data)
+                print("Realm 추가 성공")
+            }
         }
         UserDefaults.standard.set(SettingViewController.cartList, forKey: "cartCount")
     }

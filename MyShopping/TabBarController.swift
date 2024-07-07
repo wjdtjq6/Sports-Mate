@@ -17,12 +17,16 @@ class TabBarController: UITabBarController {
         let main = MainViewController()
         let nav1 = UINavigationController(rootViewController: main)
         nav1.tabBarItem = UITabBarItem(title: "검색", image: UIImage(systemName: "magnifyingglass"), tag: 0)
+       
+        let likeList = LikeListViewController()
+        let nav2 = UINavigationController(rootViewController: likeList)
+        nav2.tabBarItem = UITabBarItem(title: "좋아요", image: UIImage(systemName: "heart"), tag: 1)
         
         let setting = SettingViewController()
-        let nav2 = UINavigationController(rootViewController: setting)
-        nav2.tabBarItem = UITabBarItem(title: "설정", image: UIImage(systemName: "person"), tag: 1)
+        let nav3 = UINavigationController(rootViewController: setting)
+        nav3.tabBarItem = UITabBarItem(title: "설정", image: UIImage(systemName: "person"), tag: 2)
         
-        setViewControllers([nav1, nav2], animated: true)
+        setViewControllers([nav1,nav2,nav3], animated: true)
     }
 
 }

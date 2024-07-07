@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 extension UIViewController {
     func showAlert(title: String, message: String, ok:String, completionHandler: @escaping () -> Void) {
@@ -32,7 +33,10 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 if let appDomain = Bundle.main.bundleIdentifier {
                     UserDefaults.standard.removePersistentDomain(forName: appDomain) }
                 SettingViewController.cartList.removeAll()
-                
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.deleteAll()
+                }
                 let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
                 let SceneDelegate = windowScene?.delegate as? SceneDelegate
                 
