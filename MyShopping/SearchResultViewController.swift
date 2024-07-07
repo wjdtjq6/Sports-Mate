@@ -28,7 +28,7 @@ class SearchResultViewController: UIViewController {
     let dscButton = UIButton()
     //create 1.Realm 위치 찾기
     let realm = try! Realm()
-
+    
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     func collectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
@@ -346,7 +346,8 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         let vc = ProductsDetailViewController()
         vc.link = list[indexPath.item].link
         vc.getKey = list[indexPath.item].productId // 장바구니 기능
-        SettingViewController.getKey = list[indexPath.item].productId 
+        vc.data = likeList(image: list[indexPath.item].image, mallName: list[indexPath.item].mallName, title: list[indexPath.item].title, lprice: list[indexPath.item].lprice, link: list[indexPath.item].link, productId: list[indexPath.item].productId)// link,title,productId뿐만 아니라 다 보내줘야 Realm에 저장됨
+        SettingViewController.getKey = list[indexPath.item].productId
         
         let updatedTitle = list[indexPath.item].title.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
         vc.myTitle = updatedTitle
