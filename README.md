@@ -9,9 +9,9 @@
 
 <div align="center">
 
- <img width="33%" src="https://github.com/user-attachments/assets/882be721-b8d0-4fe3-ad0a-b93461167a34" />
-  <img width="33%" src="https://github.com/user-attachments/assets/772a023d-4147-4206-80e9-bc874f22e375" />
-  <img width="33%" src="https://github.com/user-attachments/assets/7b6a7f81-eb96-450d-b611-e1e1e6484eb5" />
+ <img width="32%" src="https://github.com/user-attachments/assets/882be721-b8d0-4fe3-ad0a-b93461167a34" />
+  <img width="32%" src="https://github.com/user-attachments/assets/772a023d-4147-4206-80e9-bc874f22e375" />
+  <img width="32%" src="https://github.com/user-attachments/assets/7b6a7f81-eb96-450d-b611-e1e1e6484eb5" />
 </div>
 
 <br />
