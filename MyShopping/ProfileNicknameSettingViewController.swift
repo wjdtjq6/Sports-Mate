@@ -92,7 +92,7 @@ class ProfileNicknameSettingViewController: UIViewController {
 
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 12)
         profileCamera.image = UIImage(systemName: "camera.fill",withConfiguration: imageConfig)
-        profileCamera.backgroundColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
+        profileCamera.backgroundColor = UIColor.accent
         profileCamera.tintColor = .white
         profileCamera.layer.cornerRadius = 12.5
         profileCamera.contentMode = .center
@@ -102,7 +102,7 @@ class ProfileNicknameSettingViewController: UIViewController {
         
         separator.backgroundColor = .lightGray
         
-        warningLabel.textColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
+        warningLabel.textColor = UIColor.accent
         warningLabel.font = .systemFont(ofSize: 13)
         if UserDefaults.standard.string(forKey: "nickname") != nil {
             navigationItem.title = "EDIT PROFILE"
@@ -110,7 +110,7 @@ class ProfileNicknameSettingViewController: UIViewController {
             let rightBarButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(completeButtonClicked))//pop??
             rightBarButton.setTitleTextAttributes([
                 NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16) ,
-                NSAttributedString.Key.foregroundColor : UIColor.black,
+                NSAttributedString.Key.foregroundColor : UIColor.accent,
                 ], for: .normal)
             navigationItem.rightBarButtonItem = rightBarButton
             
@@ -121,7 +121,7 @@ class ProfileNicknameSettingViewController: UIViewController {
 
             completeButton.setTitle("완료", for: .normal)
             completeButton.tintColor = .white
-            completeButton.backgroundColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
+            completeButton.backgroundColor = UIColor.accent
             completeButton.layer.cornerRadius = 20
             completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
         }

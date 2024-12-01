@@ -29,7 +29,7 @@ class RecentSearchListTableViewCell: UITableViewCell {
             make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(10)
         }
         clockImage.image = UIImage(systemName: "clock")
-        clockImage.tintColor = .black
+        clockImage.tintColor = UIColor.accent
         
         recentLabel.snp.makeConstraints { make in
             make.centerY.equalTo(contentView.safeAreaLayoutGuide)
@@ -41,7 +41,7 @@ class RecentSearchListTableViewCell: UITableViewCell {
             make.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(10)
         }
         xmarkButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-        xmarkButton.tintColor = .black
+        xmarkButton.tintColor = UIColor.accent
     }
 
     required init?(coder: NSCoder) {

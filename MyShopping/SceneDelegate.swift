@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let data = UserDefaults.standard.bool(forKey: "isUser")
         if data {
-            window?.rootViewController = TabBarController() //UINavigationController(rootViewController: MainViewController()) 
+            window?.rootViewController = TabBarController() 
         }
         else {
             window?.rootViewController = UINavigationController(rootViewController: ViewController()) 

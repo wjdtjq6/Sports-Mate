@@ -50,7 +50,7 @@ class LikeListViewController: UIViewController {
         }
     }
     func configureUI() {
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = UIColor.accent
         view.backgroundColor = .white
         navigationItem.title = "나의 장바구니 목록"
     }
@@ -92,6 +92,65 @@ extension LikeListViewController: UICollectionViewDelegate, UICollectionViewData
         cell.titleLabel.text = updatedTitle
         
         cell.lpriceLabel.text = "\(Int(list[indexPath.item].lprice)?.formatted() ?? String(0))"+"원"
+        
+        // 스포츠 종목 설정
+        let sportType = list[indexPath.item].getSportType()
+        cell.sportTypeLabel.text = sportType
+        
+        // 스포츠 종목별 색상 설정
+        switch sportType {
+        case "스케이트보드":
+            cell.sportTypeLabel.backgroundColor = .systemOrange
+        case "축구":
+            cell.sportTypeLabel.backgroundColor = .systemGreen
+        case "농구":
+            cell.sportTypeLabel.backgroundColor = .systemRed
+        case "야구":
+            cell.sportTypeLabel.backgroundColor = .systemBlue
+        case "테니스":
+            cell.sportTypeLabel.backgroundColor = .systemYellow
+        case "수영":
+            cell.sportTypeLabel.backgroundColor = .systemTeal
+        case "골프":
+            cell.sportTypeLabel.backgroundColor = .systemPurple
+        case "러닝":
+            cell.sportTypeLabel.backgroundColor = .systemPink
+        case "격투기":
+            cell.sportTypeLabel.backgroundColor = .systemBrown
+        case "클라이밍":
+            cell.sportTypeLabel.backgroundColor = .systemIndigo
+        case "서핑":
+            cell.sportTypeLabel.backgroundColor = .systemCyan
+        case "승마":
+            cell.sportTypeLabel.backgroundColor = .brown
+        case "요가/필라테스":
+            cell.sportTypeLabel.backgroundColor = .systemMint
+        case "크로스핏":
+            cell.sportTypeLabel.backgroundColor = .darkGray
+        case "사이클링":
+            cell.sportTypeLabel.backgroundColor = .systemGray
+        case "스키/스노보드":
+            cell.sportTypeLabel.backgroundColor = .systemBlue
+        case "스쿠버다이빙":
+            cell.sportTypeLabel.backgroundColor = .systemTeal
+        default:
+            cell.sportTypeLabel.backgroundColor = UIColor.accent
+        }
+        
+        // 난이도 설정
+        let difficulty = list[indexPath.item].getDifficulty()
+        cell.difficultyLabel.text = difficulty
+        
+        // 난이도별 색상 설정
+        switch difficulty {
+        case "전문가용":
+            cell.difficultyLabel.backgroundColor = .systemRed
+        case "중급자용":
+            cell.difficultyLabel.backgroundColor = .systemBlue
+        default:
+            cell.difficultyLabel.backgroundColor = .systemGreen
+        }
+        
         return cell
     }
     @objc func bagButtonClicked(sender: UIButton) {

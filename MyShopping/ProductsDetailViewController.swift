@@ -72,8 +72,6 @@ class ProductsDetailViewController: UIViewController,WKNavigationDelegate {
         self.view.makeToast("네트워크 연결이 끊어졌습니다. 인터넷 연결을 확인해주세요.")
     }
     @objc func rightBarButtonClicked() {
-        //let data = likeList(image: "", mallName: "", title: myTitle, lprice: "", link: link, productId: "")
-
         if UserDefaults.standard.bool(forKey: getKey) {
             UserDefaults.standard.set(false, forKey: getKey)
             navigationItem.rightBarButtonItem!.image = UIImage(systemName: "heart")

@@ -14,7 +14,6 @@
 		0316E79C2C1AD62300E6724D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0316E79B2C1AD62300E6724D /* Assets.xcassets */; };
 		0316E79F2C1AD62300E6724D /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 0316E79E2C1AD62300E6724D /* Base */; };
 		0316E7A82C1AD9F100E6724D /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0316E7A72C1AD9F100E6724D /* IQKeyboardManagerSwift */; };
-		0316E7AB2C1AD9FB00E6724D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0316E7AA2C1AD9FB00E6724D /* Kingfisher */; };
 		0316E7B32C1ADA0D00E6724D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0316E7B22C1ADA0D00E6724D /* SnapKit */; };
 		0316E7B62C1ADA1700E6724D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0316E7B52C1ADA1700E6724D /* Alamofire */; };
 		0316E7B82C1AE01D00E6724D /* ProfileNicknameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0316E7B72C1AE01D00E6724D /* ProfileNicknameSettingViewController.swift */; };
@@ -25,6 +24,7 @@
 		0333927E2C216A3800383150 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 0333927D2C216A3800383150 /* Toast */; };
 		033392BF2C252BB600383150 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033392BE2C252BB600383150 /* Network.swift */; };
 		033392E62C2949D300383150 /* SettingViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033392E52C2949D300383150 /* SettingViewController+Extension.swift */; };
+		03395FF52C4CF50900614EF2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 03395FF42C4CF50900614EF2 /* Kingfisher */; };
 		036068D32C1C0DEE008E5680 /* RecentSearchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068D22C1C0DEE008E5680 /* RecentSearchListTableViewCell.swift */; };
 		036068D52C1C1F5F008E5680 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068D42C1C1F5F008E5680 /* SearchResultViewController.swift */; };
 		036068D72C1C3534008E5680 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036068D62C1C3534008E5680 /* TabBarController.swift */; };
@@ -89,9 +89,9 @@
 			files = (
 				0333927E2C216A3800383150 /* Toast in Frameworks */,
 				0316E7B32C1ADA0D00E6724D /* SnapKit in Frameworks */,
+				03395FF52C4CF50900614EF2 /* Kingfisher in Frameworks */,
 				03D110B42C3A3C0300481E36 /* RealmSwift in Frameworks */,
 				0316E7B62C1ADA1700E6724D /* Alamofire in Frameworks */,
-				0316E7AB2C1AD9FB00E6724D /* Kingfisher in Frameworks */,
 				0316E7A82C1AD9F100E6724D /* IQKeyboardManagerSwift in Frameworks */,
 				0316E7BB2C1AF85800E6724D /* TextFieldEffects in Frameworks */,
 			);
@@ -166,12 +166,12 @@
 			name = MyShopping;
 			packageProductDependencies = (
 				0316E7A72C1AD9F100E6724D /* IQKeyboardManagerSwift */,
-				0316E7AA2C1AD9FB00E6724D /* Kingfisher */,
 				0316E7B22C1ADA0D00E6724D /* SnapKit */,
 				0316E7B52C1ADA1700E6724D /* Alamofire */,
 				0316E7BA2C1AF85800E6724D /* TextFieldEffects */,
 				0333927D2C216A3800383150 /* Toast */,
 				03D110B32C3A3C0300481E36 /* RealmSwift */,
+				03395FF42C4CF50900614EF2 /* Kingfisher */,
 			);
 			productName = MyShopping;
 			productReference = 0316E78F2C1AD62100E6724D /* MyShopping.app */;
@@ -203,12 +203,12 @@
 			mainGroup = 0316E7862C1AD62100E6724D;
 			packageReferences = (
 				0316E7A62C1AD9F100E6724D /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
-				0316E7A92C1AD9FB00E6724D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				0316E7B12C1ADA0D00E6724D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				0316E7B42C1ADA1700E6724D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				0316E7B92C1AF85800E6724D /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
 				0333927C2C216A3800383150 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				03D110B22C3A3C0300481E36 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				03395FF32C4CF50900614EF2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 0316E7902C1AD62100E6724D /* Products */;
 			projectDirPath = "";
@@ -501,14 +501,6 @@
 				minimumVersion = 7.0.3;
 			};
 		};
-		0316E7A92C1AD9FB00E6724D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.12.0;
-			};
-		};
 		0316E7B12C1ADA0D00E6724D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -541,6 +533,14 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		03395FF32C4CF50900614EF2 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 		03D110B22C3A3C0300481E36 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -556,11 +556,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0316E7A62C1AD9F100E6724D /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
-		};
-		0316E7AA2C1AD9FB00E6724D /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0316E7A92C1AD9FB00E6724D /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
 		};
 		0316E7B22C1ADA0D00E6724D /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -581,6 +576,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0333927C2C216A3800383150 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		03395FF42C4CF50900614EF2 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03395FF32C4CF50900614EF2 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		03D110B32C3A3C0300481E36 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;

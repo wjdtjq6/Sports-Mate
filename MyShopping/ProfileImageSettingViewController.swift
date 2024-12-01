@@ -68,7 +68,7 @@ class ProfileImageSettingViewController: UIViewController {
         profileImage.clipsToBounds = true
         profileImage.layer.cornerRadius = 50
         profileImage.layer.borderWidth = 3
-        profileImage.layer.borderColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0).cgColor
+        profileImage.layer.borderColor = UIColor.accent.cgColor
         if UserDefaults.standard.string(forKey: "profile") == nil {
             profileImage.image = UIImage(named: "profiled_"+"\(Int.random(in: 0...11))")
         }
@@ -78,7 +78,7 @@ class ProfileImageSettingViewController: UIViewController {
         
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 12)
         cameraImage.image = UIImage(systemName: "camera.fill",withConfiguration: imageConfig)
-        cameraImage.backgroundColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
+        cameraImage.backgroundColor = UIColor.accent
         cameraImage.tintColor = .white
         cameraImage.layer.cornerRadius = 12.5
         cameraImage.contentMode = .center
@@ -98,7 +98,7 @@ extension ProfileImageSettingViewController: UICollectionViewDelegate, UICollect
         cell.profileImage.image = profileImage
         if profileNumber != nil && Int(profileNumber!) == indexPath.item {
             cell.profileImage.layer.borderWidth = 3
-            cell.profileImage.layer.borderColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0).cgColor
+            cell.profileImage.layer.borderColor = UIColor.accent.cgColor
             cell.profileImage.alpha = 1
         }
         else {

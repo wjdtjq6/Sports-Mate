@@ -94,7 +94,7 @@ class SettingTableViewCell: UITableViewCell {
             make.trailing.equalTo(bagListLabel.snp.leading)
             make.width.equalTo(20)
         }
-        bagImage.tintColor = .black
+        bagImage.tintColor = UIColor.accent
     }
     
     required init?(coder: NSCoder) {

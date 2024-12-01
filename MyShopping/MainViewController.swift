@@ -8,8 +8,32 @@
 import UIKit
 import SnapKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
+            cell.titleLabel.text = categories[indexPath.item]
+            cell.isSelected = categories[indexPath.item] == selectedCategory
+            return cell
+    }
+    
 
+    let categoryCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 120, height: 30) // width를 80에서 120으로 증가
+        layout.minimumInteritemSpacing = 10
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = .white
+        return cv
+    }()
+        
+        let categories = ["전체", "축구", "농구", "야구", "테니스", "수영", "골프", "러닝", "격투기", "클라이밍", "서핑", "스케이트보드/롱보드", "승마", "요가/필라테스", "크로스핏", "사이클링", "스키/스노보드", "스쿠버다이빙/프리다이빙"]
+        var selectedCategory: String = "전체"
+    
     let searchBar = UISearchBar()
     let separator = UIView()
     
@@ -29,9 +53,11 @@ class MainViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(searchBar)
+        searchBar.delegate = self
         tableView.keyboardDismissMode = .onDrag //keyboard hide
         view.backgroundColor = .white
-        navigationItem.title = UserDefaults.standard.string(forKey: "nickname")!+"'s MY SHOPPING"
+        navigationItem.title = UserDefaults.standard.string(forKey: "nickname")!+"'s Sports Mate"
         navigationItem.backButtonTitle = ""
         view.addSubview(searchBar)
         view.addSubview(separator)
@@ -43,7 +69,8 @@ class MainViewController: UIViewController {
         }
         searchBar.searchBarStyle = .minimal
         searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
-        
+        setupCategoryCollectionView()
+
         separator.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp_bottomMargin).offset(20)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
@@ -104,12 +131,47 @@ class MainViewController: UIViewController {
             make.height.equalTo(40)
         }
     }
+    
+    func setupCategoryCollectionView() {
+        view.addSubview(categoryCollectionView)
+        categoryCollectionView.delegate = self
+        categoryCollectionView.dataSource = self
+        categoryCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: "CategoryCell")
+        
+        categoryCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.height.equalTo(40)
+        }
+        
+        // 기존 separator 위치 조정
+        separator.snp.remakeConstraints { make in
+            make.top.equalTo(categoryCollectionView.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(1)
+        }
+    }
+    
+    // UICollectionViewDelegate 메서드 추가
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCategory = categories[indexPath.item]
+        collectionView.reloadData()
+        
+        // 카테고리가 선택되면 해당 카테고리의 상품을 검색
+        if selectedCategory == "전체" {
+            searchBar.text = ""  // 전체 선택시 검색어 초기화
+        } else {
+            searchBar.text = selectedCategory + " 스포츠용품"
+            searchBarSearchButtonClicked(searchBar)
+        }
+    }
+    
     func noemptyListConfigureUI() {
         resentSearchLabel.text = "최근 검색"
         resentSearchLabel.font = .boldSystemFont(ofSize: 14)
         
         allRemoveButton.setTitle("전체 삭제", for: .normal)
-        allRemoveButton.setTitleColor(UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0), for: .normal)
+        allRemoveButton.setTitleColor(UIColor.accent, for: .normal)
         allRemoveButton.titleLabel?.font = .systemFont(ofSize: 13)
         allRemoveButton.addTarget(self, action: #selector(allRemoveButtonClicked), for: .touchUpInside)
         
@@ -178,26 +240,65 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource, UISear
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text! = searchBar.text!.trimmingCharacters(in: .whitespaces)
-        if searchBar.text!.contains("  ") {
-            searchBar.text! = searchBar.text!.replacingOccurrences(of: " ", with: "")
-        }
         if searchBar.text != "" {
-            if list.contains(searchBar.text!) {
-                list.removeAll { $0 == searchBar.text! }
+            let sportKeyword = selectedCategory == "전체" ?
+            searchBar.text! + " 스포츠용품" :
+            searchBar.text! + " " + selectedCategory
+
+            if searchBar.text!.contains("  ") {
+                searchBar.text! = searchBar.text!.replacingOccurrences(of: " ", with: "")
             }
-            list.append(searchBar.text!)
-            
-            tableView.reloadData()
-            UserDefaults.standard.set(list, forKey: "recentSearch")
-            let vc = SearchResultViewController()
-            vc.searchQuery = searchBar.text!
-            //SearchResultViewController().start = 1 //pagenation
-            navigationController?.pushViewController(vc, animated: true)
-            
-            searchBar.text = ""
+            if searchBar.text != "" {
+                if list.contains(searchBar.text!) {
+                    list.removeAll { $0 == searchBar.text! }
+                }
+                list.append(searchBar.text!)
+                
+                tableView.reloadData()
+                UserDefaults.standard.set(list, forKey: "recentSearch")
+                let vc = SearchResultViewController()
+                vc.searchQuery = searchBar.text!
+                //SearchResultViewController().start = 1 //pagenation
+                navigationController?.pushViewController(vc, animated: true)
+                
+                searchBar.text = ""
+            }
         }
-       
-        
+    }
+}
+
+class CategoryCell: UICollectionViewCell {
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 14, weight: .medium)
+        return label
+    }()
+    
+    override var isSelected: Bool {
+        didSet {
+            backgroundColor = isSelected ?
+                .white :
+            UIColor.accent
+            titleLabel.textColor = isSelected ? .black : .white
+        }
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupUI() {
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        layer.cornerRadius = 15
+    }
 }

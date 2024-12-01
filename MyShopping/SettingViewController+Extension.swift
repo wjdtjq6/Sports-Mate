@@ -25,7 +25,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             let vc = ProfileNicknameSettingViewController()
             navigationItem.backButtonTitle = ""
-            navigationController?.navigationBar.tintColor = .black
+            navigationController?.navigationBar.tintColor = UIColor.accent
             navigationController?.pushViewController(vc, animated: true)
         }
         else if indexPath.row == 5{
@@ -62,7 +62,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as! SettingTableViewCell
         if indexPath.row == 0 {
-            cell.profileImage.layer.borderColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0).cgColor
+            cell.profileImage.layer.borderColor = UIColor.accent.cgColor
             cell.profileImage.layer.borderWidth = 3
             cell.profileImage.image = UIImage(named: "profile_"+UserDefaults.standard.string(forKey: "profile")!)
             
@@ -78,13 +78,13 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.bagListLabel2.text = "의 상품"
             
-            if UserDefaults.standard.array(forKey: "cartCount") == nil {
-                cell.bagListLabel.text = "0개"
-            }
-            else {
-                cell.bagListLabel.text = "\(UserDefaults.standard.array(forKey: "cartCount")!.count)개"
-
-            }
+//            if UserDefaults.standard.array(forKey: "cartCount") == nil {
+//                cell.bagListLabel.text = "0개"
+//            }
+//            else {
+                cell.bagListLabel.text = "\(UserDefaults.standard.array(forKey: "cartCount")?.count ?? 0)개"
+                
+           // }
             cell.bagImage.image = UIImage(systemName: "heart.fill")
         }
         else {

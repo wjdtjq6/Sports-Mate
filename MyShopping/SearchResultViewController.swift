@@ -48,14 +48,13 @@ class SearchResultViewController: UIViewController {
 
         navigationItem.title = searchQuery
         navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = UIColor.accent
         
         view.addSubview(resultLabel)
         view.addSubview(simButton)
         view.addSubview(dateButton)
         view.addSubview(ascButton)
         view.addSubview(dscButton)
-       
         Network.shared.callRequest(searchQuery: searchQuery, sort: sort, start: start, success: { value in
             
             if self.start == 1 {
@@ -80,12 +79,13 @@ class SearchResultViewController: UIViewController {
         
         notCollectionView()
         yesCollectionView()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
         //장바구니 껐다 켜서 좋아요 눌렀을 때 다시 0부터 시작의 해결 방법!!
         if UserDefaults.standard.array(forKey: "cartCount") != nil {
             SettingViewController.cartList = UserDefaults.standard.array(forKey: "cartCount") as! [String]
         }
-    }
-    override func viewWillAppear(_ animated: Bool) {
         collectionView.reloadData()
     }
     func yesCollectionView() {
@@ -108,7 +108,7 @@ class SearchResultViewController: UIViewController {
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.height.equalTo(40)
         }
-        resultLabel.textColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
+        resultLabel.textColor = UIColor.accent
         resultLabel.font = .boldSystemFont(ofSize: 14)
         
         simButton.snp.makeConstraints { make in
@@ -119,7 +119,7 @@ class SearchResultViewController: UIViewController {
         }
         simButton.setTitle("정확도", for: .normal)
         simButton.setTitleColor(.white, for: .normal)
-        simButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
+        simButton.backgroundColor = UIColor.accent
         simButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
         simButton.layer.borderColor = UIColor(red: 205/255, green: 205/255, blue: 205/255, alpha: 1.0).cgColor
         simButton.layer.borderWidth = 1
@@ -132,7 +132,7 @@ class SearchResultViewController: UIViewController {
             make.height.equalTo(30)
         }
         dateButton.setTitle("날짜순", for: .normal)
-        dateButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        dateButton.setTitleColor(UIColor.accent, for: .normal)
         dateButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
         dateButton.layer.borderColor = UIColor(red: 205/255, green: 205/255, blue: 205/255, alpha: 1.0).cgColor
         dateButton.layer.borderWidth = 1
@@ -145,7 +145,7 @@ class SearchResultViewController: UIViewController {
             make.height.equalTo(30)
         }
         ascButton.setTitle("가격높은순", for: .normal)
-        ascButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        ascButton.setTitleColor(UIColor.accent, for: .normal)
         ascButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
         ascButton.layer.borderColor = UIColor(red: 205/255, green: 205/255, blue: 205/255, alpha: 1.0).cgColor
         ascButton.layer.borderWidth = 1
@@ -158,7 +158,7 @@ class SearchResultViewController: UIViewController {
             make.height.equalTo(30)
         }
         dscButton.setTitle("가격낮은순", for: .normal)
-        dscButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        dscButton.setTitleColor(UIColor.accent, for: .normal)
         dscButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
         dscButton.layer.borderColor = UIColor(red: 205/255, green: 205/255, blue: 205/255, alpha: 1.0).cgColor
         dscButton.layer.borderWidth = 1
@@ -172,16 +172,16 @@ class SearchResultViewController: UIViewController {
     @objc func sim() {
         start = 1
         simButton.setTitleColor(.white, for: .normal)
-        simButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
+        simButton.backgroundColor = UIColor.accent
         
         dateButton.backgroundColor = .white
-        dateButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        dateButton.setTitleColor(UIColor.accent, for: .normal)
         
         ascButton.backgroundColor = .white
-        ascButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        ascButton.setTitleColor(UIColor.accent, for: .normal)
         
         dscButton.backgroundColor = .white
-        dscButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        dscButton.setTitleColor(UIColor.accent, for: .normal)
         
         Network.shared.callRequest(searchQuery: searchQuery, sort: "sim", start: 1, success: { value in
             if self.start == 1 {
@@ -208,16 +208,16 @@ class SearchResultViewController: UIViewController {
         start = 1
 
         dateButton.setTitleColor(.white, for: .normal)
-        dateButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
+        dateButton.backgroundColor = UIColor.accent
         
         ascButton.backgroundColor = .white
-        ascButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        ascButton.setTitleColor(UIColor.accent, for: .normal)
         
         dscButton.backgroundColor = .white
-        dscButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        dscButton.setTitleColor(UIColor.accent, for: .normal)
         
         simButton.backgroundColor = .white
-        simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        simButton.setTitleColor(UIColor.accent, for: .normal)
         
         Network.shared.callRequest(searchQuery: searchQuery, sort: "date", start: 1, success: { value in
             if self.start == 1 {
@@ -243,16 +243,16 @@ class SearchResultViewController: UIViewController {
         start = 1
 
         ascButton.setTitleColor(.white, for: .normal)
-        ascButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
+        ascButton.backgroundColor = UIColor.accent
         
         dateButton.backgroundColor = .white
-        dateButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        dateButton.setTitleColor(UIColor.accent, for: .normal)
         
         dscButton.backgroundColor = .white
-        dscButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        dscButton.setTitleColor(UIColor.accent, for: .normal)
         
         simButton.backgroundColor = .white
-        simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        simButton.setTitleColor(UIColor.accent, for: .normal)
         
         Network.shared.callRequest(searchQuery: searchQuery, sort: "dsc", start: 1, success: { value in
             if self.start == 1 {
@@ -278,16 +278,16 @@ class SearchResultViewController: UIViewController {
         start = 1
 
         dscButton.setTitleColor(.white, for: .normal)
-        dscButton.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
+        dscButton.backgroundColor = UIColor.accent
         
         dateButton.backgroundColor = .white
-        dateButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        dateButton.setTitleColor(UIColor.accent, for: .normal)
         
         ascButton.backgroundColor = .white
-        ascButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        ascButton.setTitleColor(UIColor.accent, for: .normal)
         
         simButton.backgroundColor = .white
-        simButton.setTitleColor(UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0), for: .normal)
+        simButton.setTitleColor(UIColor.accent, for: .normal)
         
         Network.shared.callRequest(searchQuery: searchQuery, sort: "asc", start: 1, success: { value in
             if self.start == 1 {
@@ -357,6 +357,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchResultCollectionViewCell", for: indexPath) as! SearchResultCollectionViewCell
+        let item = list[indexPath.item]
         let url = URL(string: list[indexPath.item].image)
         cell.image.kf.setImage(with: url)
         
@@ -378,6 +379,61 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         cell.titleLabel.text = updatedTitle
         
         cell.lpriceLabel.text = "\(Int(list[indexPath.item].lprice)?.formatted() ?? String(0))"+"원"
+        let sportType = item.getSportType()
+        cell.sportTypeLabel.text = sportType
+        
+        switch sportType {
+        case "스케이트보드":
+            cell.sportTypeLabel.backgroundColor = .systemOrange
+        case "축구":
+            cell.sportTypeLabel.backgroundColor = .systemGreen
+        case "농구":
+            cell.sportTypeLabel.backgroundColor = .systemRed
+        case "야구":
+            cell.sportTypeLabel.backgroundColor = .systemBlue
+        case "테니스":
+            cell.sportTypeLabel.backgroundColor = .systemYellow
+        case "수영":
+            cell.sportTypeLabel.backgroundColor = .systemTeal
+        case "골프":
+            cell.sportTypeLabel.backgroundColor = .systemPurple
+        case "러닝":
+            cell.sportTypeLabel.backgroundColor = .systemPink
+        case "격투기":
+            cell.sportTypeLabel.backgroundColor = .systemBrown
+        case "클라이밍":
+            cell.sportTypeLabel.backgroundColor = .systemIndigo
+        case "서핑":
+            cell.sportTypeLabel.backgroundColor = .systemCyan
+        case "승마":
+            cell.sportTypeLabel.backgroundColor = .brown
+        case "요가/필라테스":
+            cell.sportTypeLabel.backgroundColor = .systemMint
+        case "크로스핏":
+            cell.sportTypeLabel.backgroundColor = .darkGray
+        case "사이클링":
+            cell.sportTypeLabel.backgroundColor = .systemGray
+        case "스키/스노보드":
+            cell.sportTypeLabel.backgroundColor = .systemBlue
+        case "스쿠버다이빙":
+            cell.sportTypeLabel.backgroundColor = .systemTeal
+        default:
+            cell.sportTypeLabel.backgroundColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
+        }
+            
+        let difficulty = item.getDifficulty()
+        cell.difficultyLabel.text = difficulty
+        
+        // 난이도별 색상 설정
+            switch difficulty {
+        case "전문가용":
+            cell.difficultyLabel.backgroundColor = .systemRed
+        case "중급자용":
+            cell.difficultyLabel.backgroundColor = .systemBlue
+        default:
+            cell.difficultyLabel.backgroundColor = .systemGreen
+        }
+        
         return cell
     }
     @objc func bagButtonClicked(sender: UIButton) {
@@ -389,37 +445,21 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         if UserDefaults.standard.bool(forKey: list[sender.tag].productId) {
             UserDefaults.standard.set(false, forKey: list[sender.tag].productId)
             SettingViewController.cartList.removeAll(where: { $0 == productId })//-장바구니 개수
-//            
-//            var arr = [likeList]()
-//            for item in list2 {
-//                if item.productId == productId {
-//                    arr.append(item)
-//                }
-//            }
-//            let delete = arr.first!
-            //==>
-//            let delete = list2.where{
-//                $0.productId == productId }
-//            try! realm.write({
-//                print(list2[sender.tag].id)
-//                //realm.delete(list2[sender.tag])
-//                realm.delete(delete)
-//                print("Realm delete Success")
-//            })
-            //==>
-            if let delete = list2.first(where: { $0.productId == list[sender.tag].productId }) {//.where{ $0.productId == productId }[0] {
+            //껐다 켜서 장바구니 지우면 무조건 0개로 되는 놈 지움!!
+            //if let delete = list2.first(where: { $0.productId == list[sender.tag].productId }) {//.where{ $0.productId == productId }[0] {
                 try! realm.write{
                     print(list2[sender.tag].id)
-                    //realm.delete(list2[sender.tag])
-                    realm.delete(delete)
+                    realm.delete(list2[sender.tag])
+                    //realm.delete(delete)
                     print("Realm delete Success")
                 }
-            }
+           // }
             
         }
         else {
             UserDefaults.standard.set(true, forKey: list[sender.tag].productId)
             SettingViewController.cartList.append(list[sender.tag].productId)//+장바구니 개수//cartList가 아니라!! userDefaults에 저장해야함!
+            
             //3.
             try! realm.write {
                 realm.add(data)

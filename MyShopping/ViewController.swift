@@ -53,11 +53,11 @@ class ViewController: UIViewController {
     func configureUI() {
         view.backgroundColor = .white
         navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = UIColor.accent
         
-        appName.text = "My Shopping"
+        appName.text = "Sports Mate"
         appName.textAlignment = .center
-        appName.textColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
+        appName.textColor = UIColor.accent
         appName.font = .boldSystemFont(ofSize: 40)
         
         appImage.image = UIImage(named: "launch")
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
         
         startButton.setTitle("시작하기", for: .normal)
         startButton.setTitleColor(.white, for: .normal)
-        startButton.backgroundColor = UIColor(red: 239/255, green: 137/255, blue: 71/255, alpha: 1.0)
+        startButton.backgroundColor = UIColor.accent
         startButton.layer.cornerRadius = 30
         startButton.addTarget(self, action: #selector(startButtonClicked), for: .touchUpInside)
     }

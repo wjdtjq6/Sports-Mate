@@ -15,6 +15,26 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     let mallNameLabel = UILabel()
     let titleLabel = UILabel()
     let lpriceLabel = UILabel()
+    let sportTypeLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.backgroundColor = UIColor.accent
+        label.layer.cornerRadius = 8
+        label.clipsToBounds = true
+        return label
+    }()
+    let difficultyLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.backgroundColor = .systemBlue
+        label.layer.cornerRadius = 8
+        label.clipsToBounds = true
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,6 +43,32 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(mallNameLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(lpriceLabel)
+        contentView.addSubview(sportTypeLabel)
+        contentView.addSubview(difficultyLabel)
+        
+        sportTypeLabel.snp.makeConstraints { make in
+            make.top.equalTo(image.snp.top).offset(10)
+            make.leading.equalTo(image.snp.leading).offset(10)
+            make.height.equalTo(16)
+            make.width.greaterThanOrEqualTo(50) // 최소 너비 설정
+        }
+
+        difficultyLabel.snp.makeConstraints { make in
+            make.top.equalTo(sportTypeLabel.snp.bottom).offset(5)
+            make.leading.equalTo(image.snp.leading).offset(10)
+            make.height.equalTo(16)
+            make.width.greaterThanOrEqualTo(50) // 최소 너비 설정
+        }
+        
+        sportTypeLabel.layoutMargins = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        difficultyLabel.layoutMargins = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        
+        sportTypeLabel.snp.makeConstraints { make in
+            make.top.equalTo(image.snp.top).offset(10)
+            make.leading.equalTo(image.snp.leading).offset(10)
+            make.height.equalTo(16)
+            make.width.greaterThanOrEqualTo(70) // 더 긴 텍스트를 수용하기 위해 너비 증가
+        }
         
         image.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
@@ -38,7 +84,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         }
         bagButton.layer.cornerRadius = 5
         bagButton.backgroundColor = .white.withAlphaComponent(0.3)
-        bagButton.tintColor = .black
+        bagButton.tintColor = UIColor.accent
         
         mallNameLabel.snp.makeConstraints { make in
             make.top.equalTo(image.snp.bottom).offset(5)
@@ -46,7 +92,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
             make.height.equalTo(15)
         }
         mallNameLabel.font = .systemFont(ofSize: 13)
-        mallNameLabel.textColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1.0)
+        mallNameLabel.textColor = UIColor.accent
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(mallNameLabel.snp.bottom).offset(5)
